@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.piaoliuhkserver.Global;
 import com.piaoliuhkserver.models.core.Admin;
 import com.piaoliuhkserver.models.engine.CustomerList;
+import com.piaoliuhkserver.models.core.Package;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -59,6 +60,16 @@ public class SyncClass {
                 SyncCommand_Method.invoke(CustomerList_Instance);
 
                 SyncJsonString = gson.toJson(CustomerList_Instance);
+                SyncSucceed = true;
+                break;
+            case "Package":
+                Package Package_Instance = new Package();
+                Package_Instance = gson.fromJson(this.SyncJsonString, Package.class);
+
+                SyncCommand_Method = Package_Instance.getClass().getDeclaredMethod(this.SyncCommand);
+                SyncCommand_Method.invoke(Package_Instance);
+
+                SyncJsonString = gson.toJson(Package_Instance);
                 SyncSucceed = true;
                 break;
         }
