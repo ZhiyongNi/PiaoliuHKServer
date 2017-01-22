@@ -17,7 +17,7 @@ import java.sql.SQLException;
  */
 public class AdminDB {
 
-    public static Admin searchbyAdminName(String f_AdminName) throws SQLException {
+    public static Admin searchAdminbyAdminName(String f_AdminName) throws SQLException {
         Admin Admin_ReturnAdmin = new Admin();
         Connection Connect = MysqlConnect.getConnect();
         PreparedStatement PreparedStatement_DB = Connect.prepareStatement("select * from piaoliuhk_admin where AdminName = ?");

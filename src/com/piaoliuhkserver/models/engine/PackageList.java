@@ -5,8 +5,9 @@
  */
 package com.piaoliuhkserver.models.engine;
 
-import com.piaoliuhkserver.models.core.Customer;
+import com.piaoliuhkserver.models.core.Package;
 import com.piaoliuhkserver.models.dbengine.CustomerDB;
+import com.piaoliuhkserver.models.dbengine.PackageDB;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -14,17 +15,17 @@ import java.util.ArrayList;
  *
  * @author zhiyo
  */
-public class CustomerList {
+public class PackageList {
 
     public String ExcuteCommand;
-    public ArrayList<Customer> CustomerItemList = new ArrayList<Customer>();
+    public ArrayList<Package> PackageItemList = new ArrayList<Package>();
 
-    public void findAllCustomerbyFilter() throws SQLException {
+    public void findAllPackagebyFilter() throws SQLException {
         //Customer Customer_Temp = new Customer();
         // if (this.AdminName != null) {
-        this.CustomerItemList = CustomerDB.findbyExcuteCommand(this.ExcuteCommand);
+        this.PackageItemList = PackageDB.findbyExcuteCommand(this.ExcuteCommand);
         // }
-        if (this.CustomerItemList != null) {
+        if (this.PackageItemList != null) {
             //CloneThis(Admin_Temp);
             //this.isAuthorized = true;
         }

@@ -27,7 +27,7 @@ public class Admin {
     public void AuthAdminbyNameandPassword() throws SQLException {
         Admin Admin_Temp = new Admin();
         if (this.AdminName != null) {
-            Admin_Temp = AdminDB.searchbyAdminName(this.AdminName);
+            Admin_Temp = AdminDB.searchAdminbyAdminName(this.AdminName);
         }
         if (this.AdminPassword == null ? Admin_Temp.AdminPassword == null : this.AdminPassword.equals(Admin_Temp.AdminPassword)) {
             CloneThis(Admin_Temp);

@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,8 +18,8 @@ import java.sql.SQLException;
  */
 public class PackageDB {
 
-    public static Package searchPackagebyExpressTrackNumber(String f_ExpressTrackNumber) throws SQLException {
-        Package Package_Return = new Package();
+    public static ArrayList<Package> findbyExcuteCommand(String f_ExpressTrackNumber) throws SQLException {
+        ArrayList<Package> PackageItemList = new ArrayList<Package>();
         Connection Connect = MysqlConnect.getConnect();
         PreparedStatement PreparedStatement_DB = Connect.prepareStatement("select * from piaoliuhk_admin where AdminName = ?");
         //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
@@ -26,15 +27,25 @@ public class PackageDB {
         ResultSet ResultSet_DB = PreparedStatement_DB.executeQuery();
 
         while (ResultSet_DB.next()) {
-            /*Package_ReturnAdmin.AdminID = ResultSet_DB.getInt("AdminID");
-            Admin_ReturnAdmin.AdminName = ResultSet_DB.getString("AdminName");
-            Admin_ReturnAdmin.AdminPassword = ResultSet_DB.getString("AdminPassword");
-            Admin_ReturnAdmin.AdminType = ResultSet_DB.getInt("AdminType");
-            Admin_ReturnAdmin.AdminMobile = ResultSet_DB.getString("AdminMobile");
-            Admin_ReturnAdmin.AdminRealName = ResultSet_DB.getString("AdminRealName");
-            Admin_ReturnAdmin.AdminEmail = ResultSet_DB.getString("AdminEmail");
-            Admin_ReturnAdmin.AdminAccountStatus = ResultSet_DB.getInt("AdminAccountStatus");*/
+            Package Package_Temp = new Package();
+            Package_Temp.PackageID = ResultSet_DB.getInt("PackageID");
+            Package_Temp.PackageSerialID = ResultSet_DB.getString("PackageSerialID");
+            Package_Temp.PackageOwnerID = ResultSet_DB.getInt("PackageOwnerID");
+            Package_Temp.PackageOwnerMobile = ResultSet_DB.getString("PackageOwnerMobile");
+            Package_Temp.PackageExpressCompany = ResultSet_DB.getString("PackageExpressCompany");
+            Package_Temp.PackageExpressTrackNumber = ResultSet_DB.getString("PackageExpressTrackNumber");
+            Package_Temp.PackageSnapshot = ResultSet_DB.getString("PackageSnapshot");
+            Package_Temp.PackageWeight = ResultSet_DB.getFloat("PackageWeight");
+            Package_Temp.PackageFee = ResultSet_DB.getFloat("PackageFee");
+            Package_Temp.PackageInTimeStamp = ResultSet_DB.getInt("PackageInTimeStamp");
+            Package_Temp.PackageOutTimeStamp = ResultSet_DB.getInt("PackageOutTimeStamp");
+            Package_Temp.PackageStatus = ResultSet_DB.getInt("PackageStatus");
+            Package_Temp.PackageRemarks = ResultSet_DB.getString("PackageRemarks");
+            Package_Temp.PackageWorkerID = ResultSet_DB.getInt("PackageWorkerID");
+            Package_Temp.PackageRelatedTransitBillSerialID = ResultSet_DB.getString("PackageRelatedTransitBillSerialID");
+            
+            PackageItemList.add(Package_Temp);
         }
-        return Package_Return;
+        return PackageItemList;
     }
 }

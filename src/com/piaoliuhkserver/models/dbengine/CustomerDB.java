@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class CustomerDB {
 
-    public static ArrayList<Customer> searchbyExcuteCommand(String f_ExcuteCommand) throws SQLException {
+    public static ArrayList<Customer> findbyExcuteCommand(String f_ExcuteCommand) throws SQLException {
         ArrayList<Customer> CustomerItemList = new ArrayList<Customer>();
         Connection Connect = MysqlConnect.getConnect();
         PreparedStatement PreparedStatement_DB = Connect.prepareStatement("SELECT * FROM express_piaoliuhk.piaoliuhk_customer where " + f_ExcuteCommand);
