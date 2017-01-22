@@ -28,7 +28,7 @@ public class OperatorSocket {
         Thread ServerSocket_Thread = new Thread(() -> {
             String LocalHost = Global.OperatorServer_LocalHost;
             Integer listenPort = Global.OperatorServer_listenPort;
-
+            
             try {
                 ServerSocket ServerSocket_Instance = new ServerSocket();
                 ServerSocket_Instance.bind(new InetSocketAddress(LocalHost, listenPort));
@@ -38,13 +38,19 @@ public class OperatorSocket {
             } catch (IOException ex) {
                 Logger.getLogger(OperatorSocket.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
-        ServerSocket_Thread.start();
 
+        });
+        ServerSocket_Thread.setName("OperatorServerSocketThread");
+        ServerSocket_Thread.start();
+        Global.OperatorServerSocketThread = ServerSocket_Thread;
+    }
+
+    public static void endSocketServer() throws IOException, InterruptedException {
+        //Global.OperatorServerSocketThread.stop();
     }
 
     public static void DialoguebySocket(Socket f_Socket) throws IOException {
-        new Thread(() -> {
+        Thread DialogueSocket_Thread = new Thread(() -> {
             byte Delimiter = Global.SocketDelimiter;
             while (true) {
                 ByteArrayOutputStream OutputStream = new ByteArrayOutputStream();
@@ -63,9 +69,9 @@ public class OperatorSocket {
                     if (OutputStream.size() != 0) {//如果读取到的流为空
                         byte[] MessageData = Base64.getDecoder().decode(OutputStream.toByteArray());
                         String SyncString = new String(MessageData, "UTF-8");
-                        
+
                         System.out.println(SyncString);
-                        
+
                         SyncClass SyncClass_Instance = new SyncClass(SyncString);
                         SyncClass_Instance.doRequire();
                         byte[] MessageReturnData = Base64.getEncoder().encode(SyncClass_Instance.doReturn());
@@ -77,7 +83,9 @@ public class OperatorSocket {
                     Logger.getLogger(OperatorSocket.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }).start();
+        });
+        DialogueSocket_Thread.start();
+        Global.OperatorDialogueSocketThreadArray.add(DialogueSocket_Thread);
     }
 
     public static void DialogueSend(Socket f_Socket, byte[] ReturnData) {

@@ -18,12 +18,20 @@ import java.util.logging.Logger;
 public class OperatorServer {
 
     public static void startOperatorServer() {
-    try {
+        try {
             OperatorSocket.startSocketServer();  // TODO add your handling code here:
         } catch (IOException ex) {
             Logger.getLogger(MainWin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-   
+    public static void endOperatorServer() {
+        try {
+            OperatorSocket.endSocketServer();  // TODO add your handling code here:
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(OperatorServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
 }
