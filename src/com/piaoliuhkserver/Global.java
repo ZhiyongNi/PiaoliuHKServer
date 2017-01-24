@@ -24,5 +24,5 @@ public class Global {
     public static boolean OperatorSocketServerThreadFlag = false;
 
     public static MySQLConnection[] MySQLConnectionArray;
-    public static ArrayList<Thread> OperatorDialogueSocketThreadArray = new ArrayList<>();
+    //public static ArrayList<Thread> OperatorDialogueSocketThreadArray = new ArrayList<>();
 }

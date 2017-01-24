@@ -15,6 +15,8 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Base64;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,6 +37,7 @@ public class OperatorSocket {
                 while (Global.OperatorSocketServerThreadFlag) {
                     Socket DialogueSocket = ServerSocket_Instance.accept();
                     if (Global.OperatorSocketServerThreadFlag) {
+
                         DialoguebySocket(DialogueSocket);
                     } else {
                         ServerSocket_Instance.close();
@@ -61,6 +64,8 @@ public class OperatorSocket {
     }
 
     public static void DialoguebySocket(Socket f_Socket) throws IOException {
+        Executor ServerExecutor = Executors.newCachedThreadPool();
+
         Thread DialogueSocket_Thread = new Thread(() -> {
             byte Delimiter = Global.SocketDelimiter;
             while (true) {
@@ -95,8 +100,9 @@ public class OperatorSocket {
                 }
             }
         });
-        DialogueSocket_Thread.start();
-        Global.OperatorDialogueSocketThreadArray.add(DialogueSocket_Thread);
+
+        ServerExecutor.execute(DialogueSocket_Thread);
+        //Global.OperatorDialogueSocketThreadArray.add(DialogueSocket_Thread);
     }
 
     public static void DialogueSend(Socket f_Socket, byte[] ReturnData) {

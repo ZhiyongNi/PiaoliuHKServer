@@ -32,7 +32,7 @@ public class Admin {
         if (this.AdminPassword == null ? Admin_Temp.AdminPassword == null : this.AdminPassword.equals(Admin_Temp.AdminPassword)) {
             CloneThis(Admin_Temp);
             this.isAuthorized = true;
-            //Thread.currentThread().setName("ABC");
+            Thread.currentThread().setName(Admin_Temp.AdminRealName);
         }
     }
 
