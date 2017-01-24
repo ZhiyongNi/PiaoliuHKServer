@@ -25,28 +25,39 @@ import java.util.logging.Logger;
 public class OperatorSocket {
 
     public static void startSocketServer() throws IOException {
-        Thread ServerSocket_Thread = new Thread(() -> {
+        Global.OperatorServerSocketThread = new Thread(() -> {
             String LocalHost = Global.OperatorServer_LocalHost;
             Integer listenPort = Global.OperatorServer_listenPort;
-            
+
             try {
                 ServerSocket ServerSocket_Instance = new ServerSocket();
                 ServerSocket_Instance.bind(new InetSocketAddress(LocalHost, listenPort));
-                while (true) {
-                    DialoguebySocket(ServerSocket_Instance.accept());
+                while (Global.OperatorSocketServerThreadFlag) {
+                    Socket DialogueSocket = ServerSocket_Instance.accept();
+                    if (Global.OperatorSocketServerThreadFlag) {
+                        DialoguebySocket(DialogueSocket);
+                    } else {
+                        ServerSocket_Instance.close();
+                        DialogueSocket.close();
+                        break;
+                    }
                 }
             } catch (IOException ex) {
                 Logger.getLogger(OperatorSocket.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         });
-        ServerSocket_Thread.setName("OperatorServerSocketThread");
-        ServerSocket_Thread.start();
-        Global.OperatorServerSocketThread = ServerSocket_Thread;
+        Global.OperatorSocketServerThreadFlag = true;
+        Global.OperatorServerSocketThread.setName("OperatorServerSocketThread");
+        Global.OperatorServerSocketThread.start();
     }
 
     public static void endSocketServer() throws IOException, InterruptedException {
-        //Global.OperatorServerSocketThread.stop();
+        Global.OperatorSocketServerThreadFlag = false;
+        String LocalHost = Global.OperatorServer_LocalHost;
+        Integer listenPort = Global.OperatorServer_listenPort;
+        new Socket(LocalHost, listenPort).close();
+        Global.OperatorServerSocketThread.join();
     }
 
     public static void DialoguebySocket(Socket f_Socket) throws IOException {

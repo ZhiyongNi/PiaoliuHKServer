@@ -21,6 +21,7 @@ public class Global {
     public static byte SocketDelimiter = '\n';
     public static byte SyncDelimiter = '|';
     public static Thread OperatorServerSocketThread;
+    public static boolean OperatorSocketServerThreadFlag = false;
 
     public static MySQLConnection[] MySQLConnectionArray;
     public static ArrayList<Thread> OperatorDialogueSocketThreadArray = new ArrayList<>();
