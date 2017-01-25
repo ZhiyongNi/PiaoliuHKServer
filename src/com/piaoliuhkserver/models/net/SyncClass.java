@@ -10,6 +10,7 @@ import com.piaoliuhkserver.Global;
 import com.piaoliuhkserver.models.core.Admin;
 import com.piaoliuhkserver.models.engine.CustomerList;
 import com.piaoliuhkserver.models.core.Package;
+import com.piaoliuhkserver.models.engine.PackageList;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -62,14 +63,14 @@ public class SyncClass {
                 SyncJsonString = gson.toJson(CustomerList_Instance);
                 SyncSucceed = true;
                 break;
-            case "Package":
-                Package Package_Instance = new Package();
-                Package_Instance = gson.fromJson(this.SyncJsonString, Package.class);
+            case "PackageList":
+                PackageList PackageList_Instance = new PackageList();
+                PackageList_Instance = gson.fromJson(this.SyncJsonString, PackageList.class);
 
-                SyncCommand_Method = Package_Instance.getClass().getDeclaredMethod(this.SyncCommand);
-                SyncCommand_Method.invoke(Package_Instance);
+                SyncCommand_Method = PackageList_Instance.getClass().getDeclaredMethod(this.SyncCommand);
+                SyncCommand_Method.invoke(PackageList_Instance);
 
-                SyncJsonString = gson.toJson(Package_Instance);
+                SyncJsonString = gson.toJson(PackageList_Instance);
                 SyncSucceed = true;
                 break;
         }

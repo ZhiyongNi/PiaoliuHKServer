@@ -18,12 +18,12 @@ import java.util.ArrayList;
  */
 public class PackageDB {
 
-    public static ArrayList<Package> findbyExcuteCommand(String f_ExpressTrackNumber) throws SQLException {
+    public static ArrayList<Package> findbyExcuteCommand(String f_ExcuteCommand) throws SQLException {
         ArrayList<Package> PackageItemList = new ArrayList<Package>();
         Connection Connect = MysqlConnect.getConnect();
-        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("select * from piaoliuhk_admin where AdminName = ?");
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("SELECT * FROM express_piaoliuhk.piaoliuhk_packagesigned where " + f_ExcuteCommand);
         //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
-        PreparedStatement_DB.setString(1, f_ExpressTrackNumber);
+        //PreparedStatement_DB.setString(1, f_ExcuteCommand);
         ResultSet ResultSet_DB = PreparedStatement_DB.executeQuery();
 
         while (ResultSet_DB.next()) {
@@ -43,7 +43,7 @@ public class PackageDB {
             Package_Temp.PackageRemarks = ResultSet_DB.getString("PackageRemarks");
             Package_Temp.PackageWorkerID = ResultSet_DB.getInt("PackageWorkerID");
             Package_Temp.PackageRelatedTransitBillSerialID = ResultSet_DB.getString("PackageRelatedTransitBillSerialID");
-            
+
             PackageItemList.add(Package_Temp);
         }
         return PackageItemList;
