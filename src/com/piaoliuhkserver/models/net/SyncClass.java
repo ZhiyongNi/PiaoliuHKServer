@@ -11,6 +11,7 @@ import com.piaoliuhkserver.models.core.Admin;
 import com.piaoliuhkserver.models.engine.CustomerList;
 import com.piaoliuhkserver.models.core.Package;
 import com.piaoliuhkserver.models.engine.PackageList;
+import com.piaoliuhkserver.models.engine.TransitBillList;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -71,6 +72,16 @@ public class SyncClass {
                 SyncCommand_Method.invoke(PackageList_Instance);
 
                 SyncJsonString = gson.toJson(PackageList_Instance);
+                SyncSucceed = true;
+                break;
+            case "TransitBillList":
+                TransitBillList TransitBillList_Instance = new TransitBillList();
+                TransitBillList_Instance = gson.fromJson(this.SyncJsonString, TransitBillList.class);
+
+                SyncCommand_Method = TransitBillList_Instance.getClass().getDeclaredMethod(this.SyncCommand);
+                SyncCommand_Method.invoke(TransitBillList_Instance);
+
+                SyncJsonString = gson.toJson(TransitBillList_Instance);
                 SyncSucceed = true;
                 break;
         }
