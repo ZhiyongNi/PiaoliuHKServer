@@ -22,7 +22,7 @@ public class CustomerDB {
     public static ArrayList<Customer> findbyExcuteCommand(String f_ExcuteCommand) throws SQLException {
         ArrayList<Customer> CustomerItemList = new ArrayList<Customer>();
         Connection Connect = MysqlConnect.getConnect();
-        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("SELECT * FROM express_piaoliuhk.piaoliuhk_customer where " + f_ExcuteCommand);
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("SELECT * FROM express_piaoliuhk.piaoliuhk_customer " + f_ExcuteCommand);
         //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
         //PreparedStatement_DB.setObject(1, f_ExcuteCommand);
         ResultSet ResultSet_DB = PreparedStatement_DB.executeQuery();
