@@ -108,14 +108,14 @@
                   <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="OperatorServerSwitch_Button" min="-2" pref="70" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="OperatorServer_Label" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane2" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
+                          <Component id="OperatorDialogueThread_List" alignment="0" min="-2" pref="227" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="LocalDBSwitch_Button" min="-2" pref="70" max="-2" attributes="0"/>
                           <Component id="RemoteDBSwitch_Button" min="-2" pref="70" max="-2" attributes="0"/>
@@ -143,17 +143,17 @@
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="RemoteDBSwitch_Button" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="RemoteDB_Label" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="77" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="OperatorDialogueThread_List" min="-2" pref="106" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
@@ -191,20 +191,6 @@
         <Property name="text" type="java.lang.String" value="OperatorServer"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JList" name="jList1">
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.JToggleButton" name="LocalDBSwitch_Button">
       <Properties>
         <Property name="text" type="java.lang.String" value="On/Off"/>
@@ -230,6 +216,11 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x8fdc;&#x7a0b;&#x6570;&#x636e;&#x5e93;&#x8fde;&#x63a5;"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JList" name="OperatorDialogueThread_List">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
