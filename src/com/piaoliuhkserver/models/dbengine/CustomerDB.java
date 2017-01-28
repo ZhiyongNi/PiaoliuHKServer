@@ -39,7 +39,7 @@ public class CustomerDB {
             Customer_Temp.CustomerSelfDirectAddress = ResultSet_DB.getString("CustomerSelfDirectAddress");
             Customer_Temp.CustomerSelfOtherAddress = ResultSet_DB.getString("CustomerSelfOtherAddress");
             Customer_Temp.CustomerCollage = ResultSet_DB.getString("CustomerCollage");
-            Customer_Temp.CustomerEmail = ResultSet_DB.getString("CustomerMail");
+            Customer_Temp.CustomerEmail = ResultSet_DB.getString("CustomerEmail");
             Customer_Temp.CustomerQQ = ResultSet_DB.getString("CustomerQQ");
             Customer_Temp.CustomerWeixin = ResultSet_DB.getString("CustomerWeixin");
             Customer_Temp.CustomerAlipay = ResultSet_DB.getString("CustomerAlipay");

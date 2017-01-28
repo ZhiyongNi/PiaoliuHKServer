@@ -86,7 +86,7 @@ public class OperatorSocket {
                         byte[] MessageData = Base64.getDecoder().decode(OutputStream.toByteArray());
                         String SyncString = new String(MessageData, "UTF-8");
 
-                        //System.out.println(SyncString);
+                        System.out.println(SyncString);
 
                         SyncClass SyncClass_Instance = new SyncClass(SyncString);
                         SyncClass_Instance.doRequire();

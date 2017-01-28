@@ -22,7 +22,7 @@ public class TransitBillDB {
     public static ArrayList<TransitBill> findbyExcuteCommand(String f_ExcuteCommand) throws SQLException {
         ArrayList<TransitBill> TransitBillItemList = new ArrayList<TransitBill>();
         Connection Connect = MysqlConnect.getConnect();
-        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("SELECT * FROM express_piaoliuhk.piaoliuhk_transitbillsigned where " + f_ExcuteCommand);
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("SELECT * FROM express_piaoliuhk.piaoliuhk_transitbillsigned " + f_ExcuteCommand);
         //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
         //PreparedStatement_DB.setString(1, f_ExcuteCommand);
         ResultSet ResultSet_DB = PreparedStatement_DB.executeQuery();
