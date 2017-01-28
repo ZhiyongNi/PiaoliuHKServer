@@ -31,7 +31,7 @@ public class CustomerDB {
             Customer Customer_Temp = new Customer();
             Customer_Temp.CustomerID = ResultSet_DB.getInt("CustomerID");
             Customer_Temp.CustomerName = ResultSet_DB.getString("CustomerName");
-            //Customer_Temp.CustomerPassword = ResultSet_DB.getString("CustomerPassword");
+            Customer_Temp.CustomerPassword = ResultSet_DB.getString("CustomerPassword");
             Customer_Temp.CustomerRealName = ResultSet_DB.getString("CustomerRealName");
             Customer_Temp.CustomerGender = ResultSet_DB.getInt("CustomerGender");
             Customer_Temp.CustomerSelfMobile = ResultSet_DB.getString("CustomerSelfMobile");
@@ -39,7 +39,7 @@ public class CustomerDB {
             Customer_Temp.CustomerSelfDirectAddress = ResultSet_DB.getString("CustomerSelfDirectAddress");
             Customer_Temp.CustomerSelfOtherAddress = ResultSet_DB.getString("CustomerSelfOtherAddress");
             Customer_Temp.CustomerCollage = ResultSet_DB.getString("CustomerCollage");
-            Customer_Temp.CustomerMail = ResultSet_DB.getString("CustomerMail");
+            Customer_Temp.CustomerEmail = ResultSet_DB.getString("CustomerMail");
             Customer_Temp.CustomerQQ = ResultSet_DB.getString("CustomerQQ");
             Customer_Temp.CustomerWeixin = ResultSet_DB.getString("CustomerWeixin");
             Customer_Temp.CustomerAlipay = ResultSet_DB.getString("CustomerAlipay");
