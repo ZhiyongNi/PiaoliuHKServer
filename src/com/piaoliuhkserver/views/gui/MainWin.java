@@ -5,7 +5,10 @@
  */
 package com.piaoliuhkserver.views.gui;
 
+import com.piaoliuhkserver.Global;
 import com.piaoliuhkserver.controls.OperatorServer;
+import javax.swing.DefaultListModel;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -29,15 +32,16 @@ public class MainWin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         OperatorServerSwitch_Button = new javax.swing.JToggleButton();
         OperatorServer_Label = new javax.swing.JLabel();
+        OperatorDialogueThread_ScrollPane = new javax.swing.JScrollPane();
+        OperatorDialogueThread_List = new javax.swing.JList<>();
         LocalDBSwitch_Button = new javax.swing.JToggleButton();
         RemoteDBSwitch_Button = new javax.swing.JToggleButton();
         LocalDB_Label = new javax.swing.JLabel();
         RemoteDB_Label = new javax.swing.JLabel();
-        OperatorDialogueThread_List = new javax.swing.JList<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         File_Menu = new javax.swing.JMenu();
         Edit_Menu = new javax.swing.JMenu();
@@ -52,10 +56,6 @@ public class MainWin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
         OperatorServerSwitch_Button.setText("On/Off");
         OperatorServerSwitch_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,6 +64,8 @@ public class MainWin extends javax.swing.JFrame {
         });
 
         OperatorServer_Label.setText("OperatorServer");
+
+        OperatorDialogueThread_ScrollPane.setViewportView(OperatorDialogueThread_List);
 
         LocalDBSwitch_Button.setText("On/Off");
         LocalDBSwitch_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -82,6 +84,10 @@ public class MainWin extends javax.swing.JFrame {
         LocalDB_Label.setText("本地数据库连接");
 
         RemoteDB_Label.setText("远程数据库连接");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         File_Menu.setText("文件");
         jMenuBar1.add(File_Menu);
@@ -156,16 +162,17 @@ public class MainWin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(OperatorServerSwitch_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(OperatorServer_Label))
-                            .addComponent(OperatorDialogueThread_List, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(LocalDBSwitch_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(RemoteDBSwitch_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(OperatorServer_Label)
+                                .addGap(106, 106, 106)
+                                .addComponent(LocalDBSwitch_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(OperatorDialogueThread_ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(RemoteDBSwitch_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(LocalDB_Label)
@@ -186,13 +193,12 @@ public class MainWin extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(RemoteDBSwitch_Button)
-                            .addComponent(RemoteDB_Label))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(OperatorDialogueThread_List, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(RemoteDB_Label)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(OperatorDialogueThread_ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -201,9 +207,9 @@ public class MainWin extends javax.swing.JFrame {
 
     private void OperatorServerSetting_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OperatorServerSetting_MenuItemActionPerformed
         // TODO add your handling code here:
-        OperatorServerSetting_Frame OperatorServerSetting_Frame_Instance =new OperatorServerSetting_Frame();
+        OperatorServerSetting_Frame OperatorServerSetting_Frame_Instance = new OperatorServerSetting_Frame();
         OperatorServerSetting_Frame_Instance.show();
-        
+
     }//GEN-LAST:event_OperatorServerSetting_MenuItemActionPerformed
 
     private void OperatorServerSwitch_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OperatorServerSwitch_ButtonActionPerformed
@@ -213,6 +219,7 @@ public class MainWin extends javax.swing.JFrame {
         } else {
             OperatorServer.endOperatorServer();
         }
+        OperatorDialogueThread_List.setModel(Global.OperatorDialogueList);
     }//GEN-LAST:event_OperatorServerSwitch_ButtonActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -287,6 +294,7 @@ public class MainWin extends javax.swing.JFrame {
     private javax.swing.JToggleButton LocalDBSwitch_Button;
     private javax.swing.JLabel LocalDB_Label;
     private javax.swing.JList<String> OperatorDialogueThread_List;
+    private javax.swing.JScrollPane OperatorDialogueThread_ScrollPane;
     private javax.swing.JMenuItem OperatorServerSetting_MenuItem;
     private javax.swing.JToggleButton OperatorServerSwitch_Button;
     private javax.swing.JMenuItem OperatorServerSwitch_MenuItem;

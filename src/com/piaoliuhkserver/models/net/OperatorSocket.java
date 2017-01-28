@@ -86,13 +86,13 @@ public class OperatorSocket {
                         byte[] MessageData = Base64.getDecoder().decode(OutputStream.toByteArray());
                         String SyncString = new String(MessageData, "UTF-8");
 
-                        System.out.println(SyncString);
+                        //System.out.println(SyncString);
 
                         SyncClass SyncClass_Instance = new SyncClass(SyncString);
                         SyncClass_Instance.doRequire();
                         byte[] MessageReturnData = Base64.getEncoder().encode(SyncClass_Instance.doReturn());
 
-                        System.out.println(new String(MessageReturnData, "UTF-8"));
+                        //System.out.println(new String(MessageReturnData, "UTF-8"));
 
                         DialogueSend(f_Socket, MessageReturnData);
                     } else {                    //如果读取到的流不为空，则抛出异常

@@ -2,6 +2,7 @@ package com.piaoliuhkserver;
 
 import com.mysql.jdbc.MySQLConnection;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,7 +23,7 @@ public class Global {
     public static byte SyncDelimiter = '|';
     public static Thread OperatorServerSocketThread;
     public static boolean OperatorSocketServerThreadFlag = false;
-
+    public static DefaultListModel OperatorDialogueList = new DefaultListModel();
     public static MySQLConnection[] MySQLConnectionArray;
     //public static ArrayList<Thread> OperatorDialogueSocketThreadArray = new ArrayList<>();
 }

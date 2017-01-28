@@ -50,6 +50,7 @@ public class SyncClass {
                 SyncCommand_Method = Admin_Instance.getClass().getDeclaredMethod(this.SyncCommand);
                 SyncCommand_Method.invoke(Admin_Instance);
                 Admin_Instance.isAuthorized = true;
+                Global.OperatorDialogueList.addElement(Admin_Instance.AdminRealName);
 
                 SyncJsonString = gson.toJson(Admin_Instance);
                 SyncSucceed = true;
