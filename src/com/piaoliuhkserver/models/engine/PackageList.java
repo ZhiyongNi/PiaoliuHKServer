@@ -6,7 +6,6 @@
 package com.piaoliuhkserver.models.engine;
 
 import com.piaoliuhkserver.models.core.Package;
-import com.piaoliuhkserver.models.dbengine.CustomerDB;
 import com.piaoliuhkserver.models.dbengine.PackageDB;
 import java.sql.SQLException;
 import java.util.ArrayList;

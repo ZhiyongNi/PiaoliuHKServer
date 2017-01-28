@@ -21,7 +21,7 @@ public class PackageDB {
     public static ArrayList<Package> findbyExcuteCommand(String f_ExcuteCommand) throws SQLException {
         ArrayList<Package> PackageItemList = new ArrayList<>();
         Connection Connect = MysqlConnect.getConnect();
-        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("SELECT * FROM express_piaoliuhk.piaoliuhk_packagesigned where " + f_ExcuteCommand);
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("SELECT * FROM express_piaoliuhk.piaoliuhk_packagesigned " + f_ExcuteCommand);
         //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
         //PreparedStatement_DB.setString(1, f_ExcuteCommand);
         ResultSet ResultSet_DB = PreparedStatement_DB.executeQuery();
