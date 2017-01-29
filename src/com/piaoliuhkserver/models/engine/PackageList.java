@@ -16,13 +16,46 @@ import java.util.ArrayList;
  */
 public class PackageList {
 
-    public String ExcuteCommand;
+    public ArrayList SQLExecuteArray;
     public ArrayList<Package> PackageItemList = new ArrayList<Package>();
 
     public void findAllPackagebyFilter() throws SQLException {
         //Customer Customer_Temp = new Customer();
         // if (this.AdminName != null) {
-        this.PackageItemList = PackageDB.findbyExcuteCommand(this.ExcuteCommand);
+        this.PackageItemList = PackageDB.findbyExecuteCommand("ALL", this.SQLExecuteArray);
+        // }
+        if (this.PackageItemList != null) {
+            //CloneThis(Admin_Temp);
+            //this.isAuthorized = true;
+        }
+    }
+
+    public void findSIGNEDPackagebyFilter() throws SQLException {
+        //Customer Customer_Temp = new Customer();
+        // if (this.AdminName != null) {
+        this.PackageItemList = PackageDB.findbyExecuteCommand("piaoliuhk_packagesigned", this.SQLExecuteArray);
+        // }
+        if (this.PackageItemList != null) {
+            //CloneThis(Admin_Temp);
+            //this.isAuthorized = true;
+        }
+    }
+
+    public void findINSYSPackagebyFilter() throws SQLException {
+        //Customer Customer_Temp = new Customer();
+        // if (this.AdminName != null) {
+        this.PackageItemList = PackageDB.findbyExecuteCommand("piaoliuhk_packageinsys", this.SQLExecuteArray);
+        // }
+        if (this.PackageItemList != null) {
+            //CloneThis(Admin_Temp);
+            //this.isAuthorized = true;
+        }
+    }
+
+    public void findUNMATCHEDPackagebyFilter() throws SQLException {
+        //Customer Customer_Temp = new Customer();
+        // if (this.AdminName != null) {
+        this.PackageItemList = PackageDB.findbyExecuteCommand("piaoliuhk_packageunmatched", this.SQLExecuteArray);
         // }
         if (this.PackageItemList != null) {
             //CloneThis(Admin_Temp);

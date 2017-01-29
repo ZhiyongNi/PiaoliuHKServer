@@ -25,5 +25,17 @@ public class Global {
     public static boolean OperatorSocketServerThreadFlag = false;
     public static DefaultListModel OperatorDialogueList = new DefaultListModel();
     public static MySQLConnection[] MySQLConnectionArray;
+
     //public static ArrayList<Thread> OperatorDialogueSocketThreadArray = new ArrayList<>();
+    class PiaoliuHK_Configs_GlobalConstant_TransitBillStatus {
+
+        final int Signed = 1;
+        final String SignedChinese = "已签收";
+        final int inShip = 2;
+        final String inShipChinese = "在途";
+        final int Checkout = 3;
+        final String CheckoutChinese = "需出库";
+        final int Pending = 4;
+        final String PendingChinese = "待配齐";
+    }
 }
