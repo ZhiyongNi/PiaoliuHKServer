@@ -18,10 +18,10 @@ import java.util.ArrayList;
  */
 public class PackageDB {
 
-    public static ArrayList<Package> findbyExecuteCommand(String f_DBName, ArrayList f_SQLExecuteList) throws SQLException {
+    public static ArrayList<Package> findbyExecuteCommand(String f_DBName, ArrayList f_SQLExecuteArray) throws SQLException {
         ArrayList<Package> PackageItemList = new ArrayList<>();
         Connection Connect = MysqlConnect.getConnect();
-        PreparedStatement PreparedStatement_DB = Connect.prepareStatement(parsetoSQL("find", f_DBName, f_SQLExecuteList));
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement(parsetoSQL("find", f_DBName, f_SQLExecuteArray));
         //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
         //PreparedStatement_DB.setString(1, f_SQLExcuteJson);
         ResultSet ResultSet_DB = PreparedStatement_DB.executeQuery();
@@ -51,19 +51,20 @@ public class PackageDB {
 
     private static String parsetoSQL(String f_SQLExcuteCommand, String f_DBName, ArrayList f_SQLExcuteArray) {
         String SQLString = "";
-
+        f_DBName = "piaoliuhk_packagesigned";
         switch (f_SQLExcuteCommand) {
             case "find":
-                SQLString = "SELECT * FROM express_piaoliuhk." + f_DBName + " where " + f_SQLExcuteArray;
+                SQLString = "SELECT * FROM express_piaoliuhk." + f_DBName;
                 break;
         }
 
         if (f_SQLExcuteArray.isEmpty()) {
             SQLString += ";";
         } else {
-            SQLString += " where ";
-            for (int i = 0; i < f_SQLExcuteArray.size(); i++) {
-                SQLString += f_SQLExcuteArray.get(i);
+            int i = 0;
+            SQLString += " where " + f_SQLExcuteArray.get(i);
+            for (i = 1; i < f_SQLExcuteArray.size(); i++) {
+                SQLString += " and " + f_SQLExcuteArray.get(i);
             }
             SQLString += ";";
         }

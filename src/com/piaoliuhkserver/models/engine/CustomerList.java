@@ -16,13 +16,13 @@ import java.util.ArrayList;
  */
 public class CustomerList {
 
-    public String ExcuteCommand;
+    public ArrayList<String> SQLExecuteArray = new ArrayList<String>();
     public ArrayList<Customer> CustomerItemList = new ArrayList<Customer>();
 
     public void findAllCustomerbyFilter() throws SQLException {
         //Customer Customer_Temp = new Customer();
         // if (this.AdminName != null) {
-        this.CustomerItemList = CustomerDB.findbyExcuteCommand(this.ExcuteCommand);
+        this.CustomerItemList = CustomerDB.findbyExcuteCommand("ALL", this.SQLExecuteArray);
         // }
         if (this.CustomerItemList != null) {
             //CloneThis(Admin_Temp);

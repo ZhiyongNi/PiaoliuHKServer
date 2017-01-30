@@ -20,7 +20,7 @@ public class AdminDB {
     public static Admin searchAdminbyAdminName(String f_AdminName) throws SQLException {
         Admin Admin_ReturnAdmin = new Admin();
         Connection Connect = MysqlConnect.getConnect();
-        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("select * from piaoliuhk_admin where AdminName = ?");
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("SELECT * FROM express_piaoliuhk.piaoliuhk_admin where AdminName = ?");
         //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
         PreparedStatement_DB.setString(1, f_AdminName);
         ResultSet ResultSet_DB = PreparedStatement_DB.executeQuery();

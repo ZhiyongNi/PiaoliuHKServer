@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class PackageList {
 
-    public ArrayList SQLExecuteArray;
+    public ArrayList<String> SQLExecuteArray = new ArrayList<String>();
     public ArrayList<Package> PackageItemList = new ArrayList<Package>();
 
     public void findAllPackagebyFilter() throws SQLException {
