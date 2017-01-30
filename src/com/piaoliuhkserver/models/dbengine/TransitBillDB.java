@@ -19,10 +19,10 @@ import java.util.ArrayList;
  */
 public class TransitBillDB {
 
-    public static ArrayList<TransitBill> findbyExcuteCommand(String f_ExcuteCommand) throws SQLException {
+    public static ArrayList<TransitBill> findbyExecuteCommand(String f_DBName, ArrayList f_SQLExecuteArray) throws SQLException {
         ArrayList<TransitBill> TransitBillItemList = new ArrayList<TransitBill>();
         Connection Connect = MysqlConnect.getConnect();
-        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("SELECT * FROM express_piaoliuhk.piaoliuhk_transitbillsigned " + f_ExcuteCommand);
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement(parsetoSQL("find", f_DBName, f_SQLExecuteArray));
         //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
         //PreparedStatement_DB.setString(1, f_ExcuteCommand);
         ResultSet ResultSet_DB = PreparedStatement_DB.executeQuery();
@@ -45,5 +45,27 @@ public class TransitBillDB {
             TransitBillItemList.add(TransitBill_Temp);
         }
         return TransitBillItemList;
+    }
+
+    private static String parsetoSQL(String f_SQLExcuteCommand, String f_DBName, ArrayList f_SQLExcuteArray) {
+        String SQLString = "";
+        f_DBName = "piaoliuhk_transitbillsigned";
+        switch (f_SQLExcuteCommand) {
+            case "find":
+                SQLString = "SELECT * FROM express_piaoliuhk." + f_DBName;
+                break;
+        }
+
+        if (f_SQLExcuteArray.isEmpty()) {
+            SQLString += ";";
+        } else {
+            int i = 0;
+            SQLString += " where " + f_SQLExcuteArray.get(i);
+            for (i = 1; i < f_SQLExcuteArray.size(); i++) {
+                SQLString += " and " + f_SQLExcuteArray.get(i);
+            }
+            SQLString += ";";
+        }
+        return SQLString;
     }
 }

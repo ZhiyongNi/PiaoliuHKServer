@@ -5,9 +5,7 @@
  */
 package com.piaoliuhkserver.models.engine;
 
-import com.piaoliuhkserver.models.core.Customer;
 import com.piaoliuhkserver.models.core.TransitBill;
-import com.piaoliuhkserver.models.dbengine.CustomerDB;
 import com.piaoliuhkserver.models.dbengine.TransitBillDB;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,13 +16,35 @@ import java.util.ArrayList;
  */
 public class TransitBillList {
 
-    public String ExcuteCommand;
+    public ArrayList<String> SQLExecuteArray = new ArrayList<String>();
     public ArrayList<TransitBill> TransitBillItemList = new ArrayList<TransitBill>();
 
     public void findAllTransitBillbyFilter() throws SQLException {
         //Customer Customer_Temp = new Customer();
         // if (this.AdminName != null) {
-        this.TransitBillItemList = TransitBillDB.findbyExcuteCommand(this.ExcuteCommand);
+        this.TransitBillItemList = TransitBillDB.findbyExecuteCommand("ALL", this.SQLExecuteArray);
+        // }
+        if (this.TransitBillItemList != null) {
+            //CloneThis(Admin_Temp);
+            //this.isAuthorized = true;
+        }
+    }
+
+    public void findSIGNEDTransitBillbyFilter() throws SQLException {
+        //Customer Customer_Temp = new Customer();
+        // if (this.AdminName != null) {
+        this.TransitBillItemList = TransitBillDB.findbyExecuteCommand("piaoliuhk_transitbillsigned", this.SQLExecuteArray);
+        // }
+        if (this.TransitBillItemList != null) {
+            //CloneThis(Admin_Temp);
+            //this.isAuthorized = true;
+        }
+    }
+
+    public void findINSYSTransitBillbyFilter() throws SQLException {
+        //Customer Customer_Temp = new Customer();
+        // if (this.AdminName != null) {
+        this.TransitBillItemList = TransitBillDB.findbyExecuteCommand("piaoliuhk_transitbillinsys", this.SQLExecuteArray);
         // }
         if (this.TransitBillItemList != null) {
             //CloneThis(Admin_Temp);
