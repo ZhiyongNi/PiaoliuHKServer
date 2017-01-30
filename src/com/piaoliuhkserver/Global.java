@@ -27,7 +27,7 @@ public class Global {
     public static MySQLConnection[] MySQLConnectionArray;
 
     //public static ArrayList<Thread> OperatorDialogueSocketThreadArray = new ArrayList<>();
-    class PiaoliuHK_Configs_GlobalConstant_TransitBillStatus {
+    public static class PiaoliuHK_Configs_GlobalConstant_TransitBillStatus {
 
         final int Signed = 1;
         final String SignedChinese = "已签收";
