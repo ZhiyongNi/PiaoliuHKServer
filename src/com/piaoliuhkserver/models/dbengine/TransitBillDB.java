@@ -49,7 +49,9 @@ public class TransitBillDB {
 
     private static String parsetoSQL(String f_SQLExcuteCommand, String f_DBName, ArrayList f_SQLExcuteArray) {
         String SQLString = "";
-        f_DBName = "piaoliuhk_transitbillsigned";
+        if (f_DBName == "All") {
+            f_DBName = "piaoliuhk_transitbillsigned";
+        }
         switch (f_SQLExcuteCommand) {
             case "find":
                 SQLString = "SELECT * FROM express_piaoliuhk." + f_DBName;

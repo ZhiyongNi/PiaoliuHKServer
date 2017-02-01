@@ -22,7 +22,7 @@ public class TransitBillList {
     public void findAllTransitBillbyFilter() throws SQLException {
         //Customer Customer_Temp = new Customer();
         // if (this.AdminName != null) {
-        this.TransitBillItemList = TransitBillDB.findbyExecuteCommand("ALL", this.SQLExecuteArray);
+        this.TransitBillItemList = TransitBillDB.findbyExecuteCommand("All", this.SQLExecuteArray);
         // }
         if (this.TransitBillItemList != null) {
             //CloneThis(Admin_Temp);
