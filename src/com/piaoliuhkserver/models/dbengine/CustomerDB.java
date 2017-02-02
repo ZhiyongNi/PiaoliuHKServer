@@ -73,4 +73,35 @@ public class CustomerDB {
         }
         return SQLString;
     }
+    
+    public static Customer searchCustomerbyCustomerID(int f_CustomerID) throws SQLException {
+        Customer Customer_ReturnCustomer = new Customer();
+        Connection Connect = MysqlConnect.getConnect();
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("SELECT * FROM express_piaoliuhk.piaoliuhk_customer where CustomerID = ?");
+        //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
+        PreparedStatement_DB.setInt(1, f_CustomerID);
+        ResultSet ResultSet_DB = PreparedStatement_DB.executeQuery();
+
+        while (ResultSet_DB.next()) {
+            Customer_ReturnCustomer.CustomerID = ResultSet_DB.getInt("CustomerID");
+            Customer_ReturnCustomer.CustomerName = ResultSet_DB.getString("CustomerName");
+            Customer_ReturnCustomer.CustomerPassword = ResultSet_DB.getString("CustomerPassword");
+            Customer_ReturnCustomer.CustomerRealName = ResultSet_DB.getString("CustomerRealName");
+            Customer_ReturnCustomer.CustomerGender = ResultSet_DB.getInt("CustomerGender");
+            Customer_ReturnCustomer.CustomerSelfMobile = ResultSet_DB.getString("CustomerSelfMobile");
+            Customer_ReturnCustomer.CustomerSelfDefaultAddress = ResultSet_DB.getString("CustomerSelfDefaultAddress");
+            Customer_ReturnCustomer.CustomerSelfDirectAddress = ResultSet_DB.getString("CustomerSelfDirectAddress");
+            Customer_ReturnCustomer.CustomerSelfOtherAddress = ResultSet_DB.getString("CustomerSelfOtherAddress");
+            Customer_ReturnCustomer.CustomerCollage = ResultSet_DB.getString("CustomerCollage");
+            Customer_ReturnCustomer.CustomerEmail = ResultSet_DB.getString("CustomerEmail");
+            Customer_ReturnCustomer.CustomerQQ = ResultSet_DB.getString("CustomerQQ");
+            Customer_ReturnCustomer.CustomerWeixin = ResultSet_DB.getString("CustomerWeixin");
+            Customer_ReturnCustomer.CustomerAlipay = ResultSet_DB.getString("CustomerAlipay");
+            Customer_ReturnCustomer.CustomerAvatarMobile = ResultSet_DB.getString("CustomerAvatarMobile");
+            Customer_ReturnCustomer.CustomerAvatarAddress = ResultSet_DB.getString("CustomerAvatarAddress");
+            Customer_ReturnCustomer.CustomerAccountStatus = ResultSet_DB.getInt("CustomerAccountStatus");
+        }
+        return Customer_ReturnCustomer;
+    }
+    
 }

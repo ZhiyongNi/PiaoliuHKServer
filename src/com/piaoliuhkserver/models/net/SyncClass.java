@@ -6,11 +6,10 @@
 package com.piaoliuhkserver.models.net;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import com.piaoliuhkserver.Global;
 import com.piaoliuhkserver.models.core.Admin;
 import com.piaoliuhkserver.models.engine.CustomerList;
-import com.piaoliuhkserver.models.core.Package;
+import com.piaoliuhkserver.models.engine.DataCSV.CheckoutCSVItem;
 import com.piaoliuhkserver.models.engine.PackageList;
 import com.piaoliuhkserver.models.engine.TransitBillList;
 import java.io.UnsupportedEncodingException;
@@ -53,7 +52,7 @@ public class SyncClass {
                 Admin_Instance.isAuthorized = true;
                 Global.OperatorDialogueList.addElement(Admin_Instance.AdminRealName);
                 Thread.currentThread().setName(Admin_Instance.AdminRealName);
-                
+
                 SyncJsonString = gson.toJson(Admin_Instance);
                 SyncSucceed = true;
                 break;
@@ -85,6 +84,16 @@ public class SyncClass {
                 SyncCommand_Method.invoke(TransitBillList_Instance);
 
                 SyncJsonString = gson.toJson(TransitBillList_Instance);
+                SyncSucceed = true;
+                break;
+            case "CheckoutCSVItem":
+                CheckoutCSVItem CheckoutCSVItem_Instance = new CheckoutCSVItem();
+                CheckoutCSVItem_Instance = gson.fromJson(this.SyncJsonString, CheckoutCSVItem.class);
+
+                SyncCommand_Method = CheckoutCSVItem_Instance.getClass().getDeclaredMethod(this.SyncCommand);
+                SyncCommand_Method.invoke(CheckoutCSVItem_Instance);
+
+                SyncJsonString = gson.toJson(CheckoutCSVItem_Instance);
                 SyncSucceed = true;
                 break;
         }
