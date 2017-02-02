@@ -73,9 +73,10 @@ public class CustomerDB {
         }
         return SQLString;
     }
-    
-    public static Customer searchCustomerbyCustomerID(int f_CustomerID) throws SQLException {
-        Customer Customer_ReturnCustomer = new Customer();
+
+    public static ArrayList<Customer> searchCustomerbyCustomerID(int f_CustomerID) throws SQLException {
+        ArrayList<Customer> CustomerItemList = new ArrayList<Customer>();
+
         Connection Connect = MysqlConnect.getConnect();
         PreparedStatement PreparedStatement_DB = Connect.prepareStatement("SELECT * FROM express_piaoliuhk.piaoliuhk_customer where CustomerID = ?");
         //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
@@ -83,6 +84,7 @@ public class CustomerDB {
         ResultSet ResultSet_DB = PreparedStatement_DB.executeQuery();
 
         while (ResultSet_DB.next()) {
+            Customer Customer_ReturnCustomer = new Customer();
             Customer_ReturnCustomer.CustomerID = ResultSet_DB.getInt("CustomerID");
             Customer_ReturnCustomer.CustomerName = ResultSet_DB.getString("CustomerName");
             Customer_ReturnCustomer.CustomerPassword = ResultSet_DB.getString("CustomerPassword");
@@ -100,8 +102,9 @@ public class CustomerDB {
             Customer_ReturnCustomer.CustomerAvatarMobile = ResultSet_DB.getString("CustomerAvatarMobile");
             Customer_ReturnCustomer.CustomerAvatarAddress = ResultSet_DB.getString("CustomerAvatarAddress");
             Customer_ReturnCustomer.CustomerAccountStatus = ResultSet_DB.getInt("CustomerAccountStatus");
+            CustomerItemList.add(Customer_ReturnCustomer);
         }
-        return Customer_ReturnCustomer;
+        return CustomerItemList;
     }
-    
+
 }

@@ -42,31 +42,29 @@ public class CheckoutCSVItem {
     public void CompleteSelfInfo() throws SQLException {
         CustomerInfo_List = new ArrayList<CustomerInfo>();
         PackageInfo_List = new ArrayList<PackageInfo>();
-        Customer Customer_Temp = new Customer();
         if (this.TransitBillOwnerID != 0) {
-            Customer_Temp = CustomerDB.searchCustomerbyCustomerID(this.TransitBillOwnerID);
-            CustomerInfo asas = new CustomerInfo();
-            asas.CustomerRealName = Customer_Temp.CustomerRealName;
-            asas.CustomerSelfMobile = Customer_Temp.CustomerSelfMobile;
-            CustomerInfo_List.add(asas);
-            String a = "";
+            for (Customer Customer_Temp : CustomerDB.searchCustomerbyCustomerID(this.TransitBillOwnerID)) {
+                CustomerInfo CustomerInfo_Temp = new CustomerInfo();
+                CustomerInfo_Temp.CustomerRealName = Customer_Temp.CustomerRealName;
+                CustomerInfo_Temp.CustomerSelfMobile = Customer_Temp.CustomerSelfMobile;
+                CustomerInfo_List.add(CustomerInfo_Temp);
+            }
         }
-
-        /*Package Package_Temp = new Package();
-        if (this.TransitBillOwnerID != 0) {
-            Package_Temp = PackageDB.searchPackagebyRelatedTransitBillSerialID(this.TransitBillSerialID);
-            this.CustomerRealName = Customer_Temp.CustomerRealName;
-            this.CustomerSelfMobile = Customer_Temp.CustomerSelfMobile;
-        }*/
+        if (this.TransitBillSerialID != "") {
+            for (Package Package_Temp : PackageDB.searchINSYSPackagebyRelatedTransitBillSerialID(this.TransitBillSerialID)) {
+                PackageInfo PackageInfo_Temp = new PackageInfo();
+                PackageInfo_Temp.PackageSerialID = Package_Temp.PackageSerialID;
+                PackageInfo_Temp.PackageWeight = Package_Temp.PackageWeight;
+                PackageInfo_List.add(PackageInfo_Temp);
+            }
+        }
     }
 
     public void CloneThis(CheckoutCSVItem f_CheckoutCSVItem) {
         this.TransitBillSerialID = f_CheckoutCSVItem.TransitBillSerialID;
         this.TransitBillOwnerID = f_CheckoutCSVItem.TransitBillOwnerID;
-        //this.CustomerRealName = f_CheckoutCSVItem.CustomerRealName;
-        //this.CustomerSelfMobile = f_CheckoutCSVItem.CustomerSelfMobile;
-        //this.TransitBillRelatedPackageSerialID_List = f_CheckoutCSVItem.TransitBillRelatedPackageSerialID_List;
-        //this.PackageWeight_List = f_CheckoutCSVItem.PackageWeight_List;
+        this.CustomerInfo_List = f_CheckoutCSVItem.CustomerInfo_List;
+        this.PackageInfo_List = f_CheckoutCSVItem.PackageInfo_List;
         this.TransitBillRelatedPackageQuantity = f_CheckoutCSVItem.TransitBillRelatedPackageQuantity;
         this.TransitBillPrice = f_CheckoutCSVItem.TransitBillPrice;
         this.TransitBillAddress = f_CheckoutCSVItem.TransitBillAddress;
