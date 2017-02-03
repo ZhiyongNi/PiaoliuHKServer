@@ -51,7 +51,7 @@ public class PackageDB {
 
     private static String parsetoSQL(String f_SQLExcuteCommand, String f_DBName, ArrayList f_SQLExcuteArray) {
         String SQLString = "";
-        if (f_DBName == "All") {
+        if (f_DBName == "ALL") {
             f_DBName = "piaoliuhk_packagesigned";
         }
         switch (f_SQLExcuteCommand) {
@@ -102,5 +102,9 @@ public class PackageDB {
             PackageItemList.add(Package_Temp);
         }
         return PackageItemList;
+    }
+
+    public static Package updatePackageArgumentInfo(String f_PackageRelatedTransitBillSerialID) throws SQLException {
+        return null;
     }
 }

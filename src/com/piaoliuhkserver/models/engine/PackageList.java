@@ -19,7 +19,7 @@ public class PackageList {
     public ArrayList<String> SQLExecuteArray = new ArrayList<String>();
     public ArrayList<Package> PackageItemList = new ArrayList<Package>();
 
-    public void findAllPackagebyFilter() throws SQLException {
+    public void findALLPackagebyFilter() throws SQLException {
         //Customer Customer_Temp = new Customer();
         // if (this.AdminName != null) {
         this.PackageItemList = PackageDB.findbyExecuteCommand("ALL", this.SQLExecuteArray);

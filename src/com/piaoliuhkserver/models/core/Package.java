@@ -7,6 +7,8 @@ package com.piaoliuhkserver.models.core;
 
 import com.piaoliuhkserver.models.dbengine.PackageDB;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -30,7 +32,20 @@ public class Package {
     public int PackageWorkerID;
     public String PackageRelatedTransitBillSerialID;
 
+    public ArrayList<String> f_Argument_List = new ArrayList<String>();
+
     public void searchPackagebyPackageExpressTrackNumber() throws SQLException {
+        Package Package_Temp = new Package();
+        if (this.PackageExpressTrackNumber != null) {
+            //Package_Temp = PackageDB.findbyExcuteCommand(this.PackageExpressTrackNumber);
+        }
+        if (this.PackageID != 0) {
+            CloneThis(Package_Temp);
+            //this.isAuthorized = true;
+        }
+    }
+
+    public void updatePackageArgumentInfo() {
         Package Package_Temp = new Package();
         if (this.PackageExpressTrackNumber != null) {
             //Package_Temp = PackageDB.findbyExcuteCommand(this.PackageExpressTrackNumber);
