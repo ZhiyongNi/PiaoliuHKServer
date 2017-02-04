@@ -48,6 +48,9 @@ public class Package {
     public void updatePackageArgumentInfo() {
         Package Package_Temp = new Package();
         if (this.PackageCell_Argument_List.size() != 0) {
+            for (String CellString : PackageCell_Argument_List) {
+                
+            }
             //Package_Temp = PackageDB.findbyExcuteCommand(this.PackageExpressTrackNumber);
         }
         if (this.PackageID != 0) {
