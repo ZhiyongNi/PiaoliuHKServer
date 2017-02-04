@@ -8,6 +8,7 @@ package com.piaoliuhkserver.models.core;
 import com.piaoliuhkserver.models.dbengine.PackageDB;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -48,9 +49,11 @@ public class Package {
     public void updatePackageArgumentInfo() {
         Package Package_Temp = new Package();
         if (this.PackageCell_Argument_List.size() != 0) {
+            HashMap Cell_Argument_HashMap = new HashMap();
             for (String CellString : PackageCell_Argument_List) {
-                
+                Cell_Argument_HashMap.put(CellString.split("=")[0], CellString.split("=")[1]);
             }
+            PackageDB.addPackagebyArgumentInfo(Cell_Argument_HashMap);
             //Package_Temp = PackageDB.findbyExcuteCommand(this.PackageExpressTrackNumber);
         }
         if (this.PackageID != 0) {

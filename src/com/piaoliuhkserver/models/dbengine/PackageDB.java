@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -104,10 +105,11 @@ public class PackageDB {
         return PackageItemList;
     }
 
-    public static Package addPackagebyArgumentInfo(String f_PackageRelatedTransitBillSerialID) throws SQLException {
+    public static Package addPackagebyArgumentInfo(HashMap f_Argument_HashMap) {
         return null;
     }
-    public static Package modifyPackagebyArgumentInfo(String f_PackageRelatedTransitBillSerialID) throws SQLException {
+
+    public static Package modifyPackagebyArgumentInfo(HashMap f_Argument_HashMap) {
         return null;
     }
 }
