@@ -46,7 +46,7 @@ public class Package {
         }
     }
 
-    public void updatePackageArgumentInfo() {
+    public void updatePackageArgumentInfo() throws SQLException {
         Package Package_Temp = new Package();
         if (this.PackageCell_Argument_List.size() != 0) {
             HashMap Cell_Argument_HashMap = new HashMap();

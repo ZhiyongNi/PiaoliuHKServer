@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  *
@@ -105,8 +107,23 @@ public class PackageDB {
         return PackageItemList;
     }
 
-    public static Package addPackagebyArgumentInfo(HashMap f_Argument_HashMap) {
-        return null;
+    public static Package addPackagebyArgumentInfo(HashMap f_Argument_HashMap) throws SQLException {
+        Package Package_Temp = new Package();
+        StringBuilder CellName = new StringBuilder();
+        StringBuilder CellValue = new StringBuilder();
+
+        Iterator Iter = f_Argument_HashMap.entrySet().iterator();
+        while (Iter.hasNext()) {
+            Map.Entry entry = (Map.Entry) Iter.next();
+            CellName.append(entry.getKey()).append(",");
+            CellValue.append(entry.getValue()).append(",");
+        }
+        Connection Connect = MysqlConnect.getConnect();
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("insert into piaoliuhk_packageinsys (" + CellName.toString() + ") values (" + CellValue.toString() + ")");
+        //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
+        //PreparedStatement_DB.setString(1, f_PackageRelatedTransitBillSerialID);
+        ResultSet ResultSet_DB = PreparedStatement_DB.executeQuery();
+        return Package_Temp;
     }
 
     public static Package modifyPackagebyArgumentInfo(HashMap f_Argument_HashMap) {
