@@ -32,7 +32,7 @@ public class Package {
     public int PackageWorkerID;
     public String PackageRelatedTransitBillSerialID;
 
-    public ArrayList<String> f_Argument_List = new ArrayList<String>();
+    public ArrayList<String> PackageCell_Argument_List = new ArrayList<String>();
 
     public void searchPackagebyPackageExpressTrackNumber() throws SQLException {
         Package Package_Temp = new Package();
@@ -47,7 +47,7 @@ public class Package {
 
     public void updatePackageArgumentInfo() {
         Package Package_Temp = new Package();
-        if (this.PackageExpressTrackNumber != null) {
+        if (this.PackageCell_Argument_List.size() != 0) {
             //Package_Temp = PackageDB.findbyExcuteCommand(this.PackageExpressTrackNumber);
         }
         if (this.PackageID != 0) {
