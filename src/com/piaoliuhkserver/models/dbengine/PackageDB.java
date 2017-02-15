@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 
 /**
  *
@@ -22,66 +23,35 @@ import java.util.Map;
 public class PackageDB {
 
     public static ArrayList<Package> findbyExecuteCommand(String f_DBName, ArrayList f_SQLExecuteArray) throws SQLException {
-        ArrayList<Package> PackageItemList = new ArrayList<>();
-        Connection Connect = MysqlConnect.getConnect();
-        PreparedStatement PreparedStatement_DB = Connect.prepareStatement(parsetoSQL("find", f_DBName, f_SQLExecuteArray));
-        //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
-        //PreparedStatement_DB.setString(1, f_SQLExcuteJson);
-        ResultSet ResultSet_DB = PreparedStatement_DB.executeQuery();
-
-        while (ResultSet_DB.next()) {
-            Package Package_Temp = new Package();
-            Package_Temp.PackageID = ResultSet_DB.getInt("PackageID");
-            Package_Temp.PackageSerialID = ResultSet_DB.getString("PackageSerialID");
-            Package_Temp.PackageOwnerID = ResultSet_DB.getInt("PackageOwnerID");
-            Package_Temp.PackageOwnerMobile = ResultSet_DB.getString("PackageOwnerMobile");
-            Package_Temp.PackageExpressCompany = ResultSet_DB.getString("PackageExpressCompany");
-            Package_Temp.PackageExpressTrackNumber = ResultSet_DB.getString("PackageExpressTrackNumber");
-            Package_Temp.PackageSnapshot = ResultSet_DB.getString("PackageSnapshot");
-            Package_Temp.PackageWeight = ResultSet_DB.getFloat("PackageWeight");
-            Package_Temp.PackageFee = ResultSet_DB.getFloat("PackageFee");
-            Package_Temp.PackageInTimeStamp = ResultSet_DB.getInt("PackageInTimeStamp");
-            Package_Temp.PackageOutTimeStamp = ResultSet_DB.getInt("PackageOutTimeStamp");
-            Package_Temp.PackageStatus = ResultSet_DB.getInt("PackageStatus");
-            Package_Temp.PackageRemarks = ResultSet_DB.getString("PackageRemarks");
-            Package_Temp.PackageWorkerID = ResultSet_DB.getInt("PackageWorkerID");
-            Package_Temp.PackageRelatedTransitBillSerialID = ResultSet_DB.getString("PackageRelatedTransitBillSerialID");
-
-            PackageItemList.add(Package_Temp);
-        }
-        return PackageItemList;
-    }
-
-    private static String parsetoSQL(String f_SQLExcuteCommand, String f_DBName, ArrayList f_SQLExcuteArray) {
-        String SQLString = "";
+        String ExecuteCommandString = "";
         if (f_DBName == "ALL") {
             f_DBName = "piaoliuhk_packagesigned";
         }
-        switch (f_SQLExcuteCommand) {
-            case "find":
-                SQLString = "SELECT * FROM express_piaoliuhk." + f_DBName;
-                break;
-        }
+        ExecuteCommandString = "SELECT * FROM express_piaoliuhk." + f_DBName;
 
-        if (f_SQLExcuteArray.isEmpty()) {
-            SQLString += ";";
-        } else {
-            int i = 0;
-            SQLString += " where " + f_SQLExcuteArray.get(i);
-            for (i = 1; i < f_SQLExcuteArray.size(); i++) {
-                SQLString += " and " + f_SQLExcuteArray.get(i);
+        Iterator Iter = f_SQLExecuteArray.iterator();
+
+        while (Iter.hasNext()) {
+            ExecuteCommandString += Iter.next();
+            if (Iter.hasNext()) {
+                ExecuteCommandString += " and ";
+            } else {
+                ExecuteCommandString = " where " + ExecuteCommandString;
             }
-            SQLString += ";";
         }
-        return SQLString;
+        ExecuteCommandString += ";";
+        return ExecuteCommandinQuery(ExecuteCommandString);
     }
 
     public static ArrayList<Package> searchINSYSPackagebyRelatedTransitBillSerialID(String f_PackageRelatedTransitBillSerialID) throws SQLException {
+        String ExecuteCommandString = "SELECT * FROM express_piaoliuhk.piaoliuhk_packageinsys where PackageRelatedTransitBillSerialID = /'" + f_PackageRelatedTransitBillSerialID + "/';";
+        return ExecuteCommandinQuery(ExecuteCommandString);
+    }
+
+    public static ArrayList<Package> ExecuteCommandinQuery(String f_ExecuteCommandString) throws SQLException {
         ArrayList<Package> PackageItemList = new ArrayList<>();
         Connection Connect = MysqlConnect.getConnect();
-        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("SELECT * FROM express_piaoliuhk.piaoliuhk_packageinsys where PackageRelatedTransitBillSerialID = ?");
-        //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
-        PreparedStatement_DB.setString(1, f_PackageRelatedTransitBillSerialID);
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement(f_ExecuteCommandString);
         ResultSet ResultSet_DB = PreparedStatement_DB.executeQuery();
 
         while (ResultSet_DB.next()) {
@@ -107,26 +77,23 @@ public class PackageDB {
         return PackageItemList;
     }
 
-    public static Package addPackagebyArgumentInfo(HashMap f_Argument_HashMap) throws SQLException {
-        Package Package_Temp = new Package();
+    public static int modifyPackagebyArgumentInfo(HashMap f_Argument_HashMap) throws SQLException {
         StringBuilder CellName = new StringBuilder();
         StringBuilder CellValue = new StringBuilder();
 
         Iterator Iter = f_Argument_HashMap.entrySet().iterator();
         while (Iter.hasNext()) {
             Map.Entry entry = (Map.Entry) Iter.next();
-            CellName.append(entry.getKey()).append(",");
-            CellValue.append(entry.getValue()).append(",");
+            CellName.append(entry.getKey());
+            CellValue.append("\'").append(entry.getValue()).append("\'");
+            if (Iter.hasNext()) {
+                CellName.append(",");
+                CellValue.append(",");
+            }
         }
         Connection Connect = MysqlConnect.getConnect();
-        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("insert into piaoliuhk_packageinsys (" + CellName.toString() + ") values (" + CellValue.toString() + ")");
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("replace into piaoliuhk_packageinsys (" + CellName.toString() + ") values (" + CellValue.toString() + ");");
         //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
-        //PreparedStatement_DB.setString(1, f_PackageRelatedTransitBillSerialID);
-        ResultSet ResultSet_DB = PreparedStatement_DB.executeQuery();
-        return Package_Temp;
-    }
-
-    public static Package modifyPackagebyArgumentInfo(HashMap f_Argument_HashMap) {
-        return null;
+        return PreparedStatement_DB.executeUpdate();
     }
 }

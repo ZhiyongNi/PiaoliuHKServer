@@ -48,18 +48,16 @@ public class Package {
 
     public void updatePackageArgumentInfo() throws SQLException {
         Package Package_Temp = new Package();
-        if (this.PackageCell_Argument_List.size() != 0) {
-            HashMap Cell_Argument_HashMap = new HashMap();
+        HashMap Cell_Argument_HashMap = new HashMap();
+        if (!this.PackageCell_Argument_List.isEmpty()) {
             for (String CellString : PackageCell_Argument_List) {
                 Cell_Argument_HashMap.put(CellString.split("=")[0], CellString.split("=")[1]);
             }
-            PackageDB.addPackagebyArgumentInfo(Cell_Argument_HashMap);
-            //Package_Temp = PackageDB.findbyExcuteCommand(this.PackageExpressTrackNumber);
+            if (this.PackageID != 0) {
+                Cell_Argument_HashMap.put("PackageID", this.PackageID);
+            }
         }
-        if (this.PackageID != 0) {
-            CloneThis(Package_Temp);
-            //this.isAuthorized = true;
-        }
+        PackageDB.modifyPackagebyArgumentInfo(Cell_Argument_HashMap);
     }
 
     public void CloneThis(Package f_Package) {
@@ -78,6 +76,5 @@ public class Package {
         this.PackageRemarks = f_Package.PackageRemarks;
         this.PackageWorkerID = f_Package.PackageWorkerID;
         this.PackageRelatedTransitBillSerialID = f_Package.PackageRelatedTransitBillSerialID;
-
     }
 }
