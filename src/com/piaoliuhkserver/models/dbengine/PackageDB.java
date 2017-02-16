@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import jdk.nashorn.internal.codegen.CompilerConstants;
 
 /**
  *
@@ -22,15 +21,9 @@ import jdk.nashorn.internal.codegen.CompilerConstants;
  */
 public class PackageDB {
 
-    public static ArrayList<Package> findbyExecuteCommand(String f_DBName, ArrayList f_SQLExecuteArray) throws SQLException {
+    public static ArrayList<Package> findPackagebyExecuteCommand(String f_DBName, ArrayList f_SQLExecuteArray) throws SQLException {
         String ExecuteCommandString = "";
-        if (f_DBName == "ALL") {
-            f_DBName = "piaoliuhk_packagesigned";
-        }
-        ExecuteCommandString = "SELECT * FROM express_piaoliuhk." + f_DBName;
-
         Iterator Iter = f_SQLExecuteArray.iterator();
-
         while (Iter.hasNext()) {
             ExecuteCommandString += Iter.next();
             if (Iter.hasNext()) {
@@ -40,7 +33,15 @@ public class PackageDB {
             }
         }
         ExecuteCommandString += ";";
-        return ExecuteCommandinQuery(ExecuteCommandString);
+        ArrayList<Package> Package_ArrayList = new ArrayList<>();
+        if ("ALL".equals(f_DBName)) {
+            Package_ArrayList.addAll(ExecuteCommandinQuery("SELECT * FROM express_piaoliuhk.piaoliuhk_packagesigned" + ExecuteCommandString));
+            Package_ArrayList.addAll(ExecuteCommandinQuery("SELECT * FROM express_piaoliuhk.piaoliuhk_packageinsys" + ExecuteCommandString));
+            Package_ArrayList.addAll(ExecuteCommandinQuery("SELECT * FROM express_piaoliuhk.piaoliuhk_packageunmatched" + ExecuteCommandString));
+        } else {
+            Package_ArrayList = ExecuteCommandinQuery("SELECT * FROM express_piaoliuhk." + f_DBName + ExecuteCommandString);
+        }
+        return Package_ArrayList;
     }
 
     public static ArrayList<Package> searchINSYSPackagebyRelatedTransitBillSerialID(String f_PackageRelatedTransitBillSerialID) throws SQLException {
@@ -77,7 +78,7 @@ public class PackageDB {
         return PackageItemList;
     }
 
-    public static int modifyPackagebyArgumentInfo(HashMap f_Argument_HashMap) throws SQLException {
+    public static int modifyPackagebyArgumentInfo(String f_TargetDBName, String f_SourceDBName, HashMap f_Argument_HashMap) throws SQLException {
         StringBuilder CellName = new StringBuilder();
         StringBuilder CellValue = new StringBuilder();
 

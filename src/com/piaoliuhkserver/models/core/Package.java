@@ -5,6 +5,7 @@
  */
 package com.piaoliuhkserver.models.core;
 
+import com.piaoliuhkserver.Global;
 import com.piaoliuhkserver.models.dbengine.PackageDB;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,17 +48,27 @@ public class Package {
     }
 
     public void updatePackageArgumentInfo() throws SQLException {
-        Package Package_Temp = new Package();
         HashMap Cell_Argument_HashMap = new HashMap();
-        if (!this.PackageCell_Argument_List.isEmpty()) {
-            for (String CellString : PackageCell_Argument_List) {
-                Cell_Argument_HashMap.put(CellString.split("=")[0], CellString.split("=")[1]);
-            }
-            if (this.PackageID != 0) {
-                Cell_Argument_HashMap.put("PackageID", this.PackageID);
-            }
+        //if (!this.PackageCell_Argument_List.isEmpty()) {
+        PackageCell_Argument_List.forEach((CellString) -> {
+            Cell_Argument_HashMap.put(CellString.split("=")[0], CellString.split("=")[1]);
+        });
+        int PackageStatus_Target = (int) Cell_Argument_HashMap.get("PackageStatus");
+        String f_TargetDBName = JudgeDBNamebyPackageStatus(PackageStatus_Target);
+        String f_SourceDBName = JudgeDBNamebyPackageStatus(this.PackageStatus);
+        PackageDB.modifyPackagebyArgumentInfo(f_TargetDBName, f_SourceDBName, Cell_Argument_HashMap);
+    }
+
+    private static String JudgeDBNamebyPackageStatus(int f_PackageStatus) {
+        String DBName = "";
+        if (f_PackageStatus == 1) {
+            DBName = "piaoliuhk_packagesigned";
+        } else if (f_PackageStatus == 9) {
+            DBName = "piaoliuhk_packagesigned";
+        } else {
+            DBName = "piaoliuhk_packagesigned";
         }
-        PackageDB.modifyPackagebyArgumentInfo(Cell_Argument_HashMap);
+        return DBName;
     }
 
     public void CloneThis(Package f_Package) {

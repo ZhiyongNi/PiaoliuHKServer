@@ -20,10 +20,7 @@ public class PackageList {
     public ArrayList<Package> PackageItemList = new ArrayList<Package>();
 
     public void findALLPackagebyFilter() throws SQLException {
-        //Customer Customer_Temp = new Customer();
-        // if (this.AdminName != null) {
-        this.PackageItemList = PackageDB.findbyExecuteCommand("ALL", this.SQLExecuteArray);
-        // }
+        this.PackageItemList = PackageDB.findPackagebyExecuteCommand("ALL", this.SQLExecuteArray);
         if (this.PackageItemList != null) {
             //CloneThis(Admin_Temp);
             //this.isAuthorized = true;
@@ -31,10 +28,7 @@ public class PackageList {
     }
 
     public void findSIGNEDPackagebyFilter() throws SQLException {
-        //Customer Customer_Temp = new Customer();
-        // if (this.AdminName != null) {
-        this.PackageItemList = PackageDB.findbyExecuteCommand("piaoliuhk_packagesigned", this.SQLExecuteArray);
-        // }
+        this.PackageItemList = PackageDB.findPackagebyExecuteCommand("piaoliuhk_packagesigned", this.SQLExecuteArray);
         if (this.PackageItemList != null) {
             //CloneThis(Admin_Temp);
             //this.isAuthorized = true;
@@ -42,9 +36,7 @@ public class PackageList {
     }
 
     public void findINSYSPackagebyFilter() throws SQLException {
-        //Customer Customer_Temp = new Customer();
-        // if (this.AdminName != null) {
-        this.PackageItemList = PackageDB.findbyExecuteCommand("piaoliuhk_packageinsys", this.SQLExecuteArray);
+        this.PackageItemList = PackageDB.findPackagebyExecuteCommand("piaoliuhk_packageinsys", this.SQLExecuteArray);
         // }
         if (this.PackageItemList != null) {
             //CloneThis(Admin_Temp);
@@ -53,10 +45,7 @@ public class PackageList {
     }
 
     public void findUNMATCHEDPackagebyFilter() throws SQLException {
-        //Customer Customer_Temp = new Customer();
-        // if (this.AdminName != null) {
-        this.PackageItemList = PackageDB.findbyExecuteCommand("piaoliuhk_packageunmatched", this.SQLExecuteArray);
-        // }
+        this.PackageItemList = PackageDB.findPackagebyExecuteCommand("piaoliuhk_packageunmatched", this.SQLExecuteArray);
         if (this.PackageItemList != null) {
             //CloneThis(Admin_Temp);
             //this.isAuthorized = true;
