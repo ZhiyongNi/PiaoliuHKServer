@@ -50,13 +50,14 @@ public class Package {
     public void updatePackageArgumentInfo() throws SQLException {
         HashMap Cell_Argument_HashMap = new HashMap();
         //if (!this.PackageCell_Argument_List.isEmpty()) {
+        Cell_Argument_HashMap.put("PackageSerialID", this.PackageSerialID);
         PackageCell_Argument_List.forEach((CellString) -> {
             Cell_Argument_HashMap.put(CellString.split("=")[0], CellString.split("=")[1]);
         });
-        int PackageStatus_Target = (int) Cell_Argument_HashMap.get("PackageStatus");
+        int PackageStatus_Target = Integer.parseInt(Cell_Argument_HashMap.get("PackageStatus").toString());
         String f_TargetDBName = JudgeDBNamebyPackageStatus(PackageStatus_Target);
         String f_SourceDBName = JudgeDBNamebyPackageStatus(this.PackageStatus);
-        PackageDB.modifyPackagebyArgumentInfo(f_TargetDBName, f_SourceDBName, Cell_Argument_HashMap);
+        PackageDB.modifyPackagebyArgumentInfo(f_TargetDBName, f_SourceDBName, this.PackageSerialID, PackageCell_Argument_List);
     }
 
     private static String JudgeDBNamebyPackageStatus(int f_PackageStatus) {
@@ -64,9 +65,9 @@ public class Package {
         if (f_PackageStatus == 1) {
             DBName = "piaoliuhk_packagesigned";
         } else if (f_PackageStatus == 9) {
-            DBName = "piaoliuhk_packagesigned";
+            DBName = "piaoliuhk_packageunmatched";
         } else {
-            DBName = "piaoliuhk_packagesigned";
+            DBName = "piaoliuhk_packageinsys";
         }
         return DBName;
     }

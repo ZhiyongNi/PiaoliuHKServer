@@ -11,9 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  *
@@ -78,22 +76,28 @@ public class PackageDB {
         return PackageItemList;
     }
 
-    public static int modifyPackagebyArgumentInfo(String f_TargetDBName, String f_SourceDBName, HashMap f_Argument_HashMap) throws SQLException {
-        StringBuilder CellName = new StringBuilder();
-        StringBuilder CellValue = new StringBuilder();
-
-        Iterator Iter = f_Argument_HashMap.entrySet().iterator();
+    public static int modifyPackagebyArgumentInfo(String f_TargetDBName, String f_SourceDBName, String f_PackageSerialID, ArrayList<String> f_PackageCell_Argument_List) throws SQLException {
+        StringBuilder PackageCell_StringBuilder = new StringBuilder();
+        //StringBuilder CellValue = new StringBuilder();
+        Iterator Iter = f_PackageCell_Argument_List.iterator();
         while (Iter.hasNext()) {
-            Map.Entry entry = (Map.Entry) Iter.next();
-            CellName.append(entry.getKey());
-            CellValue.append("\'").append(entry.getValue()).append("\'");
+            PackageCell_StringBuilder.append(Iter.next());
             if (Iter.hasNext()) {
-                CellName.append(",");
-                CellValue.append(",");
+                PackageCell_StringBuilder.append(" , ");
             }
         }
         Connection Connect = MysqlConnect.getConnect();
-        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("replace into piaoliuhk_packageinsys (" + CellName.toString() + ") values (" + CellValue.toString() + ");");
+        PreparedStatement PreparedStatement_DB = null;
+        if (!f_TargetDBName.equals(f_SourceDBName)) {
+            PreparedStatement_DB = Connect.prepareStatement("replace into " + f_TargetDBName + " (select * from " + f_SourceDBName + " where PackageSerialID = '" + f_PackageSerialID + "' );");
+            PreparedStatement_DB.executeUpdate();
+
+            PreparedStatement_DB = Connect.prepareStatement("delete from " + f_SourceDBName + " where PackageSerialID = '" + f_PackageSerialID + "' ;");
+            PreparedStatement_DB.executeUpdate();
+        }
+        String SQLCommand = "update " + f_TargetDBName + " set " + PackageCell_StringBuilder.toString() + " where PackageSerialID = '" + f_PackageSerialID + "' ;";
+
+        PreparedStatement_DB = Connect.prepareStatement(SQLCommand);
         //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
         return PreparedStatement_DB.executeUpdate();
     }
