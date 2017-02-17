@@ -36,17 +36,6 @@ public class Package {
 
     public ArrayList<String> PackageCell_Argument_List = new ArrayList<String>();
 
-    public void searchPackagebyPackageExpressTrackNumber() throws SQLException {
-        Package Package_Temp = new Package();
-        if (this.PackageExpressTrackNumber != null) {
-            //Package_Temp = PackageDB.findbyExcuteCommand(this.PackageExpressTrackNumber);
-        }
-        if (this.PackageID != 0) {
-            CloneThis(Package_Temp);
-            //this.isAuthorized = true;
-        }
-    }
-
     public void updatePackageArgumentInfo() throws SQLException {
         HashMap Cell_Argument_HashMap = new HashMap();
         //if (!this.PackageCell_Argument_List.isEmpty()) {
@@ -72,7 +61,7 @@ public class Package {
         return DBName;
     }
 
-    public void CloneThis(Package f_Package) {
+    private void CloneThis(Package f_Package) {
         this.PackageID = f_Package.PackageID;
         this.PackageSerialID = f_Package.PackageSerialID;
         this.PackageOwnerID = f_Package.PackageOwnerID;

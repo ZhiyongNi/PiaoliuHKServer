@@ -35,7 +35,6 @@ public class PackageDB {
         if ("ALL".equals(f_DBName)) {
             Package_ArrayList.addAll(ExecuteCommandinQuery("SELECT * FROM express_piaoliuhk.piaoliuhk_packagesigned" + ExecuteCommandString));
             Package_ArrayList.addAll(ExecuteCommandinQuery("SELECT * FROM express_piaoliuhk.piaoliuhk_packageinsys" + ExecuteCommandString));
-            Package_ArrayList.addAll(ExecuteCommandinQuery("SELECT * FROM express_piaoliuhk.piaoliuhk_packageunmatched" + ExecuteCommandString));
         } else {
             Package_ArrayList = ExecuteCommandinQuery("SELECT * FROM express_piaoliuhk." + f_DBName + ExecuteCommandString);
         }

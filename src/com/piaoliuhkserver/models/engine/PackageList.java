@@ -43,12 +43,4 @@ public class PackageList {
             //this.isAuthorized = true;
         }
     }
-
-    public void findUNMATCHEDPackagebyFilter() throws SQLException {
-        this.PackageItemList = PackageDB.findPackagebyExecuteCommand("piaoliuhk_packageunmatched", this.SQLExecuteArray);
-        if (this.PackageItemList != null) {
-            //CloneThis(Admin_Temp);
-            //this.isAuthorized = true;
-        }
-    }
 }
