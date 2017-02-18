@@ -12,6 +12,7 @@ import com.piaoliuhkserver.models.core.Package;
 import com.piaoliuhkserver.models.engine.CustomerList;
 import com.piaoliuhkserver.models.engine.DataCSV.CheckoutCSVItem;
 import com.piaoliuhkserver.models.engine.PackageList;
+import com.piaoliuhkserver.models.engine.ScriptCommand;
 import com.piaoliuhkserver.models.engine.TransitBillList;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
@@ -95,6 +96,16 @@ public class SyncClass {
                 SyncCommand_Method.invoke(TransitBillList_Instance);
 
                 SyncJsonString = gson.toJson(TransitBillList_Instance);
+                SyncSucceed = true;
+                break;
+            case "ScriptCommand":
+                ScriptCommand ScriptCommand_Instance = new ScriptCommand();
+                ScriptCommand_Instance = gson.fromJson(this.SyncJsonString, ScriptCommand.class);
+
+                SyncCommand_Method = ScriptCommand_Instance.getClass().getDeclaredMethod(this.SyncCommand);
+                SyncCommand_Method.invoke(ScriptCommand_Instance);
+
+                SyncJsonString = gson.toJson(ScriptCommand_Instance);
                 SyncSucceed = true;
                 break;
             case "CheckoutCSVItem":
