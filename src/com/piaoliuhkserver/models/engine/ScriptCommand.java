@@ -19,25 +19,20 @@ public class ScriptCommand {
     public ArrayList<String> ResultReturnList = new ArrayList<String>();
 
     public void IDRepeatChecks() throws SQLException {
-        ResultSet wqResultSet = AutoScript.ScripttoQuery("select * from piaoliuhk_packageinsys where PackageID in (select distinct PackageID from piaoliuhk_packagesigned);");
-        int count = 0;
-        while (wqResultSet.next()) {
-            count++;
-        }
-        if (count == 0) {
-            this.ResultReturnList.add("PackageID RepeatChecks Well.");
-        }
-
-        ResultSet aqResultSet = AutoScript.ScripttoQuery("select * from piaoliuhk_transitbillinsys where TransitBillID in (select distinct TransitBillID from piaoliuhk_transitbillsigned);");
-        while (aqResultSet.next()) {
-            count++;
-        }
-        if (count == 0) {
-            this.ResultReturnList.add("TransitBillID RepeatChecks Well.");
-        }
+        this.ResultReturnList.add(AutoScript.PackageIDRepeatChecks());
+        this.ResultReturnList.add(AutoScript.TransitBillIDRepeatChecks());
     }
 
-    public void TransitBillCheckout() {
-        this.ResultReturnList.add("");
+    public void INSYSPackageRelatedTransitBillCheck() throws SQLException {
+        this.ResultReturnList.add(AutoScript.PackageRelatedTransitBillCheck("INSYS"));
+    }
+
+    public void SIGNEDPackageRelatedTransitBillCheck() throws SQLException {
+        this.ResultReturnList.add(AutoScript.PackageRelatedTransitBillCheck("SIGNED"));
+    }
+
+    public void TransitBillCheckout() throws SQLException {
+        // AutoScript.PackageRelatedTransitBillCheck();
+        ////this.ResultReturnList.add("");
     }
 }
