@@ -5,6 +5,7 @@
  */
 package com.piaoliuhkserver.models.dbengine;
 
+import com.google.gson.Gson;
 import com.piaoliuhkserver.models.core.Package;
 import com.piaoliuhkserver.models.core.TransitBill;
 import java.sql.Connection;
@@ -32,7 +33,7 @@ public class TransitBillDB {
             TransitBill_Temp.TransitBillID = ResultSet_DB.getInt("TransitBillID");
             TransitBill_Temp.TransitBillSerialID = ResultSet_DB.getString("TransitBillSerialID");
             TransitBill_Temp.TransitBillOwnerID = ResultSet_DB.getInt("TransitBillOwnerID");
-            TransitBill_Temp.TransitBillRelatedPackageSerialID = ResultSet_DB.getString("TransitBillRelatedPackageSerialID");
+            TransitBill_Temp.TransitBillRelatedPackageSerialID = new Gson().fromJson(ResultSet_DB.getString("TransitBillRelatedPackageSerialID"), ArrayList.class);
             TransitBill_Temp.TransitBillRelatedPackageQuantity = ResultSet_DB.getInt("TransitBillRelatedPackageQuantity");
             TransitBill_Temp.TransitBillPrice = ResultSet_DB.getFloat("TransitBillPrice");
             TransitBill_Temp.TransitBillMethod = ResultSet_DB.getInt("TransitBillMethod");

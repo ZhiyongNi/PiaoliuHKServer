@@ -18,7 +18,7 @@ public class TransitBill {
     public int TransitBillID;
     public String TransitBillSerialID;
     public int TransitBillOwnerID;
-    public String TransitBillRelatedPackageSerialID;
+    public ArrayList<String> TransitBillRelatedPackageSerialID = new ArrayList<>();
     public int TransitBillRelatedPackageQuantity;
     public float TransitBillPrice;
     public int TransitBillMethod;

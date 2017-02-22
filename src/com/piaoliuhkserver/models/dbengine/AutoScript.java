@@ -6,14 +6,12 @@
 package com.piaoliuhkserver.models.dbengine;
 
 import com.google.gson.Gson;
-import com.piaoliuhkserver.Global;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -99,7 +97,7 @@ public class AutoScript {
                     String IDKey = (String) object.getKey();
                     ArrayList<String> IDValue = (ArrayList<String>) object.getValue();
 
-                    PreparedStatement PreparedStatement_DB_Second = Connect.prepareStatement("UPDATE express_piaoliuhk." + TransitBill_DBName + " SET TransitBillRelatedPackageSerialID='" + new Gson().toJson(IDValue) + "' WHERE TransitBillSerialID='" + IDKey + "';");
+                    PreparedStatement PreparedStatement_DB_Second = Connect.prepareStatement("UPDATE express_piaoliuhk." + TransitBill_DBName + " SET TransitBillRelatedPackageSerialID='" + new Gson().toJson(IDValue, ArrayList.class) + "', TransitBillRelatedPackageQuantity = " + IDValue.size() + " WHERE TransitBillSerialID='" + IDKey + "';");
                     PreparedStatement_DB_Second.executeUpdate();
                 }
             } catch (SQLException ex) {
@@ -109,4 +107,23 @@ public class AutoScript {
 
         return "PackageRelatedTransitBillCheck Has " + PackageRelatedTransitBillSerialID_HashMap.size() + " Rows.";
     }
+
+    public static String PendingTransitBillCheckout() throws SQLException {
+        Connection Connect = MysqlConnect.getConnect();
+
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("UPDATE piaoliuhk_transitbillinsys SET TransitBillStatus = 7 where TransitBillStatus = 8;");
+        PreparedStatement_DB.executeUpdate();
+
+        PreparedStatement_DB = Connect.prepareStatement("UPDATE piaoliuhk_transitbillinsys INNER JOIN piaoliuhk_packageinsys ON piaoliuhk_transitbillinsys.TransitBillSerialID=piaoliuhk_packageinsys.PackageRelatedTransitBillSerialID SET piaoliuhk_transitbillinsys.TransitBillStatus = 8 where piaoliuhk_packageinsys.PackageStatus = 9;");
+        PreparedStatement_DB.executeUpdate();
+
+        ResultSet ResultSet_DB = ScripttoQuery("select * from piaoliuhk_transitbillinsys where TransitBillStatus = 7;");
+        int count = 0;
+        while (ResultSet_DB.next()) {
+            count++;
+        }
+
+        return "TransitBillCheckout Has " + count + " Rows.";
+    }
+
 }

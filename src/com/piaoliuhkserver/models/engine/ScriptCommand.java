@@ -31,8 +31,7 @@ public class ScriptCommand {
         this.ResultReturnList.add(AutoScript.PackageRelatedTransitBillCheck("SIGNED"));
     }
 
-    public void TransitBillCheckout() throws SQLException {
-        // AutoScript.PackageRelatedTransitBillCheck();
-        ////this.ResultReturnList.add("");
+    public void PendingtoCheckoutTransitBill() throws SQLException {
+        this.ResultReturnList.add(AutoScript.PendingTransitBillCheckout());
     }
 }
