@@ -6,7 +6,6 @@
 package com.piaoliuhkserver.models.engine;
 
 import com.piaoliuhkserver.models.dbengine.AutoScript;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
