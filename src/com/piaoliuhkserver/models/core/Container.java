@@ -5,6 +5,8 @@
  */
 package com.piaoliuhkserver.models.core;
 
+import com.piaoliuhkserver.models.dbengine.ContainerDB;
+import com.piaoliuhkserver.models.dbengine.PackageDB;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,17 +31,24 @@ public class Container {
 
     public ArrayList<String> ContainerCell_Argument_List = new ArrayList<String>();
 
-    public void updateContainerArgumentInfo() throws SQLException {
+    public void addContainerNewRecoder() {
+    }
+
+    public void updateContainerRecoderbyArgumentInfo() throws SQLException {
         HashMap Cell_Argument_HashMap = new HashMap();
         //if (!this.PackageCell_Argument_List.isEmpty()) {
-        //Cell_Argument_HashMap.put("PackageSerialID", this.PackageSerialID);
-        //PackageCell_Argument_List.forEach((CellString) -> {
-        //    Cell_Argument_HashMap.put(CellString.split("=")[0], CellString.split("=")[1]);
-        //});
-        //int PackageStatus_Target = Integer.parseInt(Cell_Argument_HashMap.get("PackageStatus").toString());
-        //String f_TargetDBName = JudgeDBNamebyPackageStatus(PackageStatus_Target);
-        //String f_SourceDBName = JudgeDBNamebyPackageStatus(this.PackageStatus);
-        //PackageDB.modifyPackagebyArgumentInfo(f_TargetDBName, f_SourceDBName, this.PackageSerialID, PackageCell_Argument_List);
+        Cell_Argument_HashMap.put("ContainerID", this.ContainerID);
+        ContainerCell_Argument_List.forEach((CellString) -> {
+            Cell_Argument_HashMap.put(CellString.split("=")[0], CellString.split("=")[1]);
+        });
+        int ContainerStatus_Target = Integer.parseInt(Cell_Argument_HashMap.get("ContainerStatus").toString());
+        String f_TargetDBName = JudgeDBNamebyPackageStatus(ContainerStatus_Target);
+        String f_SourceDBName = JudgeDBNamebyPackageStatus(this.ContainerStatus);
+        ContainerDB.modifyPackagebyArgumentInfo(f_TargetDBName, f_SourceDBName, this.ContainerSerialID, ContainerCell_Argument_List);
+    }
+
+    private static String JudgeDBNamebyPackageStatus(int f_PackageStatus) {
+        return "";
     }
 
     private void CloneThis(Container f_Container) {
