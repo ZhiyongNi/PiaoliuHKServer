@@ -8,6 +8,7 @@ package com.piaoliuhkserver.models.net;
 import com.google.gson.Gson;
 import com.piaoliuhkserver.Global;
 import com.piaoliuhkserver.models.core.Admin;
+import com.piaoliuhkserver.models.core.Container;
 import com.piaoliuhkserver.models.core.Package;
 import com.piaoliuhkserver.models.engine.CustomerList;
 import com.piaoliuhkserver.models.engine.DataCSV.CheckoutCSVItem;
@@ -68,14 +69,14 @@ public class SyncClass {
                 SyncJsonString = gson.toJson(Package_Instance);
                 SyncSucceed = true;
                 break;
-            case "CustomerList":
-                CustomerList CustomerList_Instance = new CustomerList();
-                CustomerList_Instance = gson.fromJson(this.SyncJsonString, CustomerList.class);
+            case "Container":
+                Container Container_Instance = new Container();
+                Container_Instance = gson.fromJson(this.SyncJsonString, Container.class);
 
-                SyncCommand_Method = CustomerList_Instance.getClass().getDeclaredMethod(this.SyncCommand);
-                SyncCommand_Method.invoke(CustomerList_Instance);
+                SyncCommand_Method = Container_Instance.getClass().getDeclaredMethod(this.SyncCommand);
+                SyncCommand_Method.invoke(Container_Instance);
 
-                SyncJsonString = gson.toJson(CustomerList_Instance);
+                SyncJsonString = gson.toJson(Container_Instance);
                 SyncSucceed = true;
                 break;
             case "PackageList":

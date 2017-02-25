@@ -32,6 +32,7 @@ public class Container {
     public ArrayList<String> ContainerCell_Argument_List = new ArrayList<String>();
 
     public void addContainerNewRecoder() {
+        System.out.println(this.toString());
     }
 
     public void updateContainerRecoderbyArgumentInfo() throws SQLException {
