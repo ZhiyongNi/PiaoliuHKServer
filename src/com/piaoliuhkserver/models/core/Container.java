@@ -29,10 +29,10 @@ public class Container {
     public int ContainerSignTimeStamp;
     public int ContainerStatus;
 
-    public ArrayList<String> ContainerCell_Argument_List = new ArrayList<String>();
+    private ArrayList<String> ContainerCell_Argument_List = new ArrayList<String>();
 
-    public void addContainerNewRecoder() {
-        System.out.println(this.toString());
+    public void addContainerNewRecoder() throws SQLException, IllegalArgumentException, IllegalAccessException {
+        ContainerDB.addContainer(this);
     }
 
     public void updateContainerRecoderbyArgumentInfo() throws SQLException {
@@ -45,7 +45,7 @@ public class Container {
         int ContainerStatus_Target = Integer.parseInt(Cell_Argument_HashMap.get("ContainerStatus").toString());
         String f_TargetDBName = JudgeDBNamebyPackageStatus(ContainerStatus_Target);
         String f_SourceDBName = JudgeDBNamebyPackageStatus(this.ContainerStatus);
-        ContainerDB.modifyPackagebyArgumentInfo(f_TargetDBName, f_SourceDBName, this.ContainerSerialID, ContainerCell_Argument_List);
+        ContainerDB.modifyContainerbyArgumentInfo(f_TargetDBName, f_SourceDBName, this.ContainerSerialID, ContainerCell_Argument_List);
     }
 
     private static String JudgeDBNamebyPackageStatus(int f_PackageStatus) {
