@@ -63,6 +63,7 @@ public class ContainerDB {
             Container_Temp.ContainerSerialID = ResultSet_DB.getString("ContainerSerialID");
             Container_Temp.ContainerWorkerID = ResultSet_DB.getInt("ContainerWorkerID");
             Container_Temp.ContainerRelatedTransitBillSerialID = new Gson().fromJson(ResultSet_DB.getString("ContainerRelatedTransitBillSerialID"), ArrayList.class);
+            Container_Temp.ContainerRelatedTransitBillQuantity = ResultSet_DB.getInt("ContainerRelatedTransitBillQuantity");
             Container_Temp.ContainerExpressCompany = ResultSet_DB.getString("ContainerExpressCompany");
             Container_Temp.ContainerExpressTrackNumber = ResultSet_DB.getString("ContainerExpressTrackNumber");
             Container_Temp.ContainerPrice = ResultSet_DB.getFloat("ContainerPrice");
@@ -108,17 +109,58 @@ public class ContainerDB {
         Iterator Iter = Field_List.iterator();
         while (Iter.hasNext()) {
             Field field = (Field) Iter.next();
-            if (!field.getName().equals("ContainerID") && Iter.hasNext()) {
-                CellName.append(field.getName()).append(",");
-                CellValue.append(field.get(f_Container)).append(",");
-            } else if (!field.getName().equals("ContainerID")) {
-                CellName.append(field.getName());
-                CellValue.append(field.get(f_Container));
+            switch (field.getName()) {
+                case "ContainerID":
+                    break;
+                case "ContainerSerialID":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Container)).append("'");
+                    break;
+                case "ContainerWorkerID":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Container)).append("'");
+                    break;
+                case "ContainerRelatedTransitBillSerialID":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(new Gson().toJson(field.get(f_Container), ArrayList.class)).append("'");
+                    break;
+                case "ContainerRelatedTransitBillQuantity":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Container)).append("'");
+                    break;
+                case "ContainerExpressCompany":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Container)).append("'");
+                    break;
+                case "ContainerExpressTrackNumber":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Container)).append("'");
+                    break;
+                case "ContainerPrice":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Container)).append("'");
+                    break;
+                case "ContainerInitializationTimeStamp":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Container)).append("'");
+                    break;
+                case "ContainerSignTimeStamp":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Container)).append("'");
+                    break;
+                case "ContainerStatus":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Container)).append("'");
+                    break;
+            }
+            if (Iter.hasNext() && CellName.length() != 0) {
+                CellName.append(",");
+                CellValue.append(",");
             }
         }
 
         Connection Connect = MysqlConnect.getConnect();
-        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("insert into piaoliuhk_containerinsys ( " + CellName.toString() + " ) VALUES( " + CellValue.toString() + " );");
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("insert into piaoliuhk_containerinsys ( " + CellName.toString() + " ) values ( " + CellValue.toString() + " );");
         PreparedStatement_DB.execute();
 
         //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
