@@ -79,6 +79,16 @@ public class SyncClass {
                 SyncJsonString = gson.toJson(Container_Instance);
                 SyncSucceed = true;
                 break;
+            case "CustomerList":
+                CustomerList CustomerList_Instance = new CustomerList();
+                CustomerList_Instance = gson.fromJson(this.SyncJsonString, CustomerList.class);
+
+                SyncCommand_Method = CustomerList_Instance.getClass().getDeclaredMethod(this.SyncCommand);
+                SyncCommand_Method.invoke(CustomerList_Instance);
+
+                SyncJsonString = gson.toJson(CustomerList_Instance);
+                SyncSucceed = true;
+                break;
             case "PackageList":
                 PackageList PackageList_Instance = new PackageList();
                 PackageList_Instance = gson.fromJson(this.SyncJsonString, PackageList.class);

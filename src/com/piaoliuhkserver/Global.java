@@ -15,7 +15,7 @@ import javax.swing.DefaultListModel;
  */
 public class Global {
 
-    public static String OperatorServer_LocalHost = "127.0.0.1";
+    public static String OperatorServer_LocalHost = "0.0.0.0";
     //public static String OperatorServer_LocalHost = "192.168.31.142";
 
     public static Integer OperatorServer_listenPort = 20000;
