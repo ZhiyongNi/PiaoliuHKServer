@@ -161,7 +161,6 @@ public class ContainerDB {
 
         Connection Connect = MysqlConnect.getConnect();
         PreparedStatement PreparedStatement_DB = Connect.prepareStatement("insert into piaoliuhk_containerinsys ( " + CellName.toString() + " ) values ( " + CellValue.toString() + " );");
-        PreparedStatement_DB.execute();
 
         //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
         return PreparedStatement_DB.executeUpdate();

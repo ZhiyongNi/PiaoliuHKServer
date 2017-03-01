@@ -7,7 +7,9 @@ package com.piaoliuhkserver.models.core;
 
 import com.piaoliuhkserver.models.dbengine.ContainerDB;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -31,6 +33,13 @@ public class Container {
     private ArrayList<String> ContainerCell_Argument_List = new ArrayList<String>();
 
     public void addContainerNewRecoder() throws SQLException, IllegalArgumentException, IllegalAccessException {
+        if (this.ContainerSerialID.equals("COTEMP")) {
+
+            SimpleDateFormat asqw = new SimpleDateFormat("yyyyMMdd");
+
+            ContainerSerialID = "CO" + asqw.format(new Date()) + 2;
+        }
+
         ContainerDB.addContainer(this);
     }
 
