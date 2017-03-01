@@ -16,6 +16,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Base64;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +31,7 @@ public class OperatorSocket {
         Global.OperatorServerSocketThread = new Thread(() -> {
             String LocalHost = Global.OperatorServer_LocalHost;
             Integer listenPort = Global.OperatorServer_listenPort;
+            ExecutorService ServerExecutor = Executors.newCachedThreadPool();
 
             try {
                 ServerSocket ServerSocket_Instance = new ServerSocket();
@@ -37,9 +39,9 @@ public class OperatorSocket {
                 while (Global.OperatorSocketServerThreadFlag) {
                     Socket DialogueSocket = ServerSocket_Instance.accept();
                     if (Global.OperatorSocketServerThreadFlag) {
-
-                        DialoguebySocket(DialogueSocket);
+                        ServerExecutor.execute(new DialoguebySocket(DialogueSocket));
                     } else {
+                        //ServerExecutor.shutdownNow();
                         ServerSocket_Instance.close();
                         DialogueSocket.close();
                         break;
@@ -63,15 +65,25 @@ public class OperatorSocket {
         Global.OperatorServerSocketThread.join();
     }
 
-    public static void DialoguebySocket(Socket f_Socket) throws IOException {
-        Executor ServerExecutor = Executors.newCachedThreadPool();
+    static class DialoguebySocket extends Thread {
 
-        Thread DialogueSocket_Thread = new Thread(() -> {
-            byte Delimiter = Global.SocketDelimiter;
-            while (true) {
+        private Socket DialogueSocket;
+        private boolean DialoguebySocketThreadFlag;
+        private byte Delimiter;
+
+        DialoguebySocket(Socket f_Socket) {
+            DialogueSocket = f_Socket;
+            DialoguebySocketThreadFlag = true;
+            Delimiter = Global.SocketDelimiter;
+
+        }
+
+        @Override
+        public void run() {
+            while (DialoguebySocketThreadFlag) {
                 ByteArrayOutputStream OutputStream = new ByteArrayOutputStream();
                 try {
-                    InputStream IS = f_Socket.getInputStream();
+                    InputStream IS = DialogueSocket.getInputStream();
                     int nextByte;
 
                     while ((nextByte = IS.read()) != Delimiter) {
@@ -93,17 +105,15 @@ public class OperatorSocket {
                         byte[] MessageReturnData = Base64.getEncoder().encode(SyncClass_Instance.doReturn());
 
                         System.out.println(new String(MessageReturnData, "UTF-8"));
-                        DialogueSend(f_Socket, MessageReturnData);
+                        DialogueSend(DialogueSocket, MessageReturnData);
                     } else {                    //如果读取到的流不为空，则抛出异常
                     }
                 } catch (IOException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException ex) {
                     Logger.getLogger(OperatorSocket.class.getName()).log(Level.SEVERE, null, ex);
+                    DialoguebySocketThreadFlag = false;
                 }
             }
-        });
-
-        ServerExecutor.execute(DialogueSocket_Thread);
-        //Global.OperatorDialogueSocketThreadArray.add(DialogueSocket_Thread);
+        }
     }
 
     public static void DialogueSend(Socket f_Socket, byte[] ReturnData) {
