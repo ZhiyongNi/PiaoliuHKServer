@@ -114,16 +114,17 @@ public class OperatorSocket {
                 }
             }
         }
-    }
 
-    public static void DialogueSend(Socket f_Socket, byte[] ReturnData) {
-        try {
-            OutputStream OS = f_Socket.getOutputStream();
-            OS.write(ReturnData);  // Send the encoded string to the server
-            OS.write(Global.SocketDelimiter);
+        private static void DialogueSend(Socket f_Socket, byte[] ReturnData) {
+            try {
+                OutputStream OS = f_Socket.getOutputStream();
+                OS.write(ReturnData);  // Send the encoded string to the server
+                OS.write(Global.SocketDelimiter);
 
-        } catch (IOException ex) {
-            Logger.getLogger(OperatorSocket.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(OperatorSocket.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
+
 }
