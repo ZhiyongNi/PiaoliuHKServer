@@ -5,7 +5,6 @@
  */
 package com.piaoliuhkserver.models.core;
 
-import com.piaoliuhkserver.models.dbengine.PackageDB;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,6 +46,9 @@ public class Customer {
         //String f_TargetDBName = JudgeDBNamebyPackageStatus(PackageStatus_Target);
         //String f_SourceDBName = JudgeDBNamebyPackageStatus(this.PackageStatus);
         //PackageDB.modifyPackagebyArgumentInfo(f_TargetDBName, f_SourceDBName, this.PackageSerialID, PackageCell_Argument_List);
+    }
+
+    public void addCustomerNewRecoder() throws SQLException {
     }
 
     private void CloneThis(Customer f_Customer) {

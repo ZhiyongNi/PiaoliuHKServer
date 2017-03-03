@@ -5,12 +5,10 @@
  */
 package com.piaoliuhkserver.models.core;
 
-import com.piaoliuhkserver.Global;
 import com.piaoliuhkserver.models.dbengine.PackageDB;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  *
@@ -47,6 +45,11 @@ public class Package {
         String f_TargetDBName = JudgeDBNamebyPackageStatus(PackageStatus_Target);
         String f_SourceDBName = JudgeDBNamebyPackageStatus(this.PackageStatus);
         PackageDB.modifyPackagebyArgumentInfo(f_TargetDBName, f_SourceDBName, this.PackageSerialID, PackageCell_Argument_List);
+    }
+
+    public void addPackageNewRecoder() throws SQLException {
+        String TargetDBName = "piaoliuhk_packageinsys";
+        PackageDB.modifyPackagebyArgumentInfo(TargetDBName, null, this.PackageSerialID, PackageCell_Argument_List);
     }
 
     private static String JudgeDBNamebyPackageStatus(int f_PackageStatus) {

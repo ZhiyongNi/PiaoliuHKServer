@@ -43,6 +43,9 @@ public class TransitBill {
         //PackageDB.modifyPackagebyArgumentInfo(f_TargetDBName, f_SourceDBName, this.PackageSerialID, PackageCell_Argument_List);
     }
 
+    public void addTransitBillNewRecoder() throws SQLException {
+    }
+
     private void CloneThis(TransitBill f_TransitBill) {
         this.TransitBillID = f_TransitBill.TransitBillID;
         this.TransitBillSerialID = f_TransitBill.TransitBillSerialID;

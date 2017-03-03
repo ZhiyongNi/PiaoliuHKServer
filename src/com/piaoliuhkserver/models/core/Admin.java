@@ -32,8 +32,11 @@ public class Admin {
         if (this.AdminPassword == null ? Admin_Temp.AdminPassword == null : this.AdminPassword.equals(Admin_Temp.AdminPassword)) {
             CloneThis(Admin_Temp);
             this.isAuthorized = true;
-            
+
         }
+    }
+
+    public void addAdminNewRecoder() {
     }
 
     public void CloneThis(Admin f_Admin) {

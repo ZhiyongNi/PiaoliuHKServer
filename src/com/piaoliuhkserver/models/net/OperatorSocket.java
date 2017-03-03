@@ -15,7 +15,6 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Base64;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -108,7 +107,7 @@ public class OperatorSocket {
                         DialogueSend(DialogueSocket, MessageReturnData);
                     } else {                    //如果读取到的流不为空，则抛出异常
                     }
-                } catch (IOException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException ex) {
+                } catch (IOException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException | InstantiationException ex) {
                     Logger.getLogger(OperatorSocket.class.getName()).log(Level.SEVERE, null, ex);
                     DialoguebySocketThreadFlag = false;
                 }
@@ -126,5 +125,4 @@ public class OperatorSocket {
             }
         }
     }
-
 }

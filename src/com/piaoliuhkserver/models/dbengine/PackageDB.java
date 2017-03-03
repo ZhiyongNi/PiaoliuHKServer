@@ -5,13 +5,18 @@
  */
 package com.piaoliuhkserver.models.dbengine;
 
+import com.google.gson.Gson;
+import com.piaoliuhkserver.models.core.Container;
 import com.piaoliuhkserver.models.core.Package;
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -46,7 +51,7 @@ public class PackageDB {
         return ExecuteCommandinQuery(ExecuteCommandString);
     }
 
-    public static ArrayList<Package> ExecuteCommandinQuery(String f_ExecuteCommandString) throws SQLException {
+    private static ArrayList<Package> ExecuteCommandinQuery(String f_ExecuteCommandString) throws SQLException {
         ArrayList<Package> PackageItemList = new ArrayList<>();
         Connection Connect = MysqlConnect.getConnect();
         PreparedStatement PreparedStatement_DB = Connect.prepareStatement(f_ExecuteCommandString);
@@ -100,4 +105,69 @@ public class PackageDB {
         //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
         return PreparedStatement_DB.executeUpdate();
     }
+
+    public static int addPackage(Package f_Package) throws SQLException, IllegalArgumentException, IllegalAccessException {
+        StringBuilder CellName = new StringBuilder();
+        StringBuilder CellValue = new StringBuilder();
+        List<Field> Field_List = Arrays.asList(f_Package.getClass().getFields());
+        Iterator Iter = Field_List.iterator();
+        while (Iter.hasNext()) {
+            Field field = (Field) Iter.next();
+            switch (field.getName()) {
+                case "ContainerID":
+                    break;
+                case "ContainerSerialID":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+                case "ContainerWorkerID":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+                case "ContainerRelatedTransitBillSerialID":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(new Gson().toJson(field.get(f_Package), ArrayList.class)).append("'");
+                    break;
+                case "ContainerRelatedTransitBillQuantity":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+                case "ContainerExpressCompany":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+                case "ContainerExpressTrackNumber":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+                case "ContainerPrice":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+                case "ContainerInitializationTimeStamp":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+                case "ContainerSignTimeStamp":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+                case "ContainerStatus":
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+            }
+            if (Iter.hasNext() && CellName.length() != 0) {
+                CellName.append(",");
+                CellValue.append(",");
+            }
+        }
+
+        Connection Connect = MysqlConnect.getConnect();
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("insert into piaoliuhk_containerinsys ( " + CellName.toString() + " ) values ( " + CellValue.toString() + " );");
+
+        //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
+        return PreparedStatement_DB.executeUpdate();
+    }
+
 }
