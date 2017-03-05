@@ -5,10 +5,16 @@
  */
 package com.piaoliuhkserver.models.core;
 
+import com.piaoliuhkserver.Global;
+import com.piaoliuhkserver.models.dbengine.ContainerDB;
 import com.piaoliuhkserver.models.dbengine.PackageDB;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import jdk.nashorn.internal.parser.TokenType;
+import sun.security.krb5.Confounder;
 
 /**
  *
@@ -25,8 +31,8 @@ public class Package {
     public String PackageSnapshot;
     public float PackageWeight;
     public float PackageFee;
-    public int PackageInTimeStamp;
-    public int PackageOutTimeStamp;
+    public double PackageInTimeStamp;
+    public double PackageOutTimeStamp;
     public int PackageStatus;
     public String PackageRemarks;
     public int PackageWorkerID;
@@ -39,25 +45,67 @@ public class Package {
         //if (!this.PackageCell_Argument_List.isEmpty()) {
         Cell_Argument_HashMap.put("PackageSerialID", this.PackageSerialID);
         PackageCell_Argument_List.forEach((CellString) -> {
-            Cell_Argument_HashMap.put(CellString.split("=")[0], CellString.split("=")[1]);
+            Cell_Argument_HashMap.put(CellString.split("=")[0].trim(), CellString.split("=")[1].trim());
         });
-        int PackageStatus_Target = Integer.parseInt(Cell_Argument_HashMap.get("PackageStatus").toString());
+        int PackageStatus_Target = Integer.parseInt(Cell_Argument_HashMap.get("PackageStatus").toString().replace("\'", ""));
         String f_TargetDBName = JudgeDBNamebyPackageStatus(PackageStatus_Target);
         String f_SourceDBName = JudgeDBNamebyPackageStatus(this.PackageStatus);
         PackageDB.modifyPackagebyArgumentInfo(f_TargetDBName, f_SourceDBName, this.PackageSerialID, PackageCell_Argument_List);
     }
 
-    public void addPackageNewRecoder() throws SQLException {
-        String TargetDBName = "piaoliuhk_packageinsys";
-        PackageDB.modifyPackagebyArgumentInfo(TargetDBName, null, this.PackageSerialID, PackageCell_Argument_List);
+    public void addPackageNewRecoder() throws SQLException, IllegalArgumentException, IllegalAccessException {
+        if (this.PackageSerialID.equals("PATEMP")) {
+            Global.Today_PackageSerialNum++;
+            String SerialNumber_String = new SimpleDateFormat("yyyyMMdd").format(new Date()) + String.format("%04d", Global.Today_PackageSerialNum);
+            PackageSerialID = "PA" + SerialNumber_String + SelfVerifyChar(Long.parseLong(SerialNumber_String));
+        }
+        PackageDB.addPackage(this);
+    }
+
+    private static String SelfVerifyChar(long SerialNumber) {
+        String VerifyChar = "";
+        switch (new Long(SerialNumber % 11).intValue()) {
+            case 10:
+                VerifyChar = "2";
+                break;
+            case 9:
+                VerifyChar = "3";
+                break;
+            case 8:
+                VerifyChar = "4";
+                break;
+            case 7:
+                VerifyChar = "5";
+                break;
+            case 6:
+                VerifyChar = "6";
+                break;
+            case 5:
+                VerifyChar = "7";
+                break;
+            case 4:
+                VerifyChar = "8";
+                break;
+            case 3:
+                VerifyChar = "9";
+                break;
+            case 2:
+                VerifyChar = "X";
+                break;
+            case 1:
+                VerifyChar = "0";
+                break;
+            case 0:
+                VerifyChar = "1";
+                break;
+        }
+        return VerifyChar;
     }
 
     private static String JudgeDBNamebyPackageStatus(int f_PackageStatus) {
         String DBName = "";
         if (f_PackageStatus == 1) {
             DBName = "piaoliuhk_packagesigned";
-        } else if (f_PackageStatus == 9) {
-            DBName = "piaoliuhk_packageunmatched";
         } else {
             DBName = "piaoliuhk_packageinsys";
         }

@@ -46,4 +46,8 @@ public class Global {
         static int Pending = 8;
         static String PendingChinese = "待配齐";
     }
+    
+      public static int Today_PackageSerialNum;
+      public static int Today_TransitBillSerialNum;
+      public static int Today_ContainerSerialNum;
 }

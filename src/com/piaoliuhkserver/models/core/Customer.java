@@ -51,6 +51,56 @@ public class Customer {
     public void addCustomerNewRecoder() throws SQLException {
     }
 
+    private static String SelfVerifyChar(long SerialNumber) {
+        String VerifyChar = "";
+        switch (new Long(SerialNumber % 11).intValue()) {
+            case 10:
+                VerifyChar = "2";
+                break;
+            case 9:
+                VerifyChar = "3";
+                break;
+            case 8:
+                VerifyChar = "4";
+                break;
+            case 7:
+                VerifyChar = "5";
+                break;
+            case 6:
+                VerifyChar = "6";
+                break;
+            case 5:
+                VerifyChar = "7";
+                break;
+            case 4:
+                VerifyChar = "8";
+                break;
+            case 3:
+                VerifyChar = "9";
+                break;
+            case 2:
+                VerifyChar = "X";
+                break;
+            case 1:
+                VerifyChar = "0";
+                break;
+            case 0:
+                VerifyChar = "1";
+                break;
+        }
+        return VerifyChar;
+    }
+
+    private static String JudgeDBNamebyCustomerStatus(int f_CustomerStatus) {
+        String DBName = "";
+        if (f_CustomerStatus == 1) {
+            DBName = "piaoliuhk_packagesigned";
+        } else {
+            DBName = "piaoliuhk_packageinsys";
+        }
+        return DBName;
+    }
+
     private void CloneThis(Customer f_Customer) {
         this.CustomerID = f_Customer.CustomerID;
         this.CustomerName = f_Customer.CustomerName;

@@ -5,8 +5,6 @@
  */
 package com.piaoliuhkserver.models.dbengine;
 
-import com.google.gson.Gson;
-import com.piaoliuhkserver.models.core.Container;
 import com.piaoliuhkserver.models.core.Package;
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -68,8 +66,8 @@ public class PackageDB {
             Package_Temp.PackageSnapshot = ResultSet_DB.getString("PackageSnapshot");
             Package_Temp.PackageWeight = ResultSet_DB.getFloat("PackageWeight");
             Package_Temp.PackageFee = ResultSet_DB.getFloat("PackageFee");
-            Package_Temp.PackageInTimeStamp = ResultSet_DB.getInt("PackageInTimeStamp");
-            Package_Temp.PackageOutTimeStamp = ResultSet_DB.getInt("PackageOutTimeStamp");
+            Package_Temp.PackageInTimeStamp = ResultSet_DB.getDouble("PackageInTimeStamp");
+            Package_Temp.PackageOutTimeStamp = ResultSet_DB.getDouble("PackageOutTimeStamp");
             Package_Temp.PackageStatus = ResultSet_DB.getInt("PackageStatus");
             Package_Temp.PackageRemarks = ResultSet_DB.getString("PackageRemarks");
             Package_Temp.PackageWorkerID = ResultSet_DB.getInt("PackageWorkerID");
@@ -82,7 +80,6 @@ public class PackageDB {
 
     public static int modifyPackagebyArgumentInfo(String f_TargetDBName, String f_SourceDBName, String f_PackageSerialID, ArrayList<String> f_PackageCell_Argument_List) throws SQLException {
         StringBuilder PackageCell_StringBuilder = new StringBuilder();
-        //StringBuilder CellValue = new StringBuilder();
         Iterator Iter = f_PackageCell_Argument_List.iterator();
         while (Iter.hasNext()) {
             PackageCell_StringBuilder.append(Iter.next());
@@ -114,59 +111,127 @@ public class PackageDB {
         while (Iter.hasNext()) {
             Field field = (Field) Iter.next();
             switch (field.getName()) {
-                case "ContainerID":
+                case "PackageID":
                     break;
-                case "ContainerSerialID":
+                case "PackageSerialID":
+                    if (Iter.hasNext() && CellName.length() != 0 && CellName.lastIndexOf(",") != CellName.length()) {
+                        CellName.append(",");
+                        CellValue.append(",");
+                    }
                     CellName.append(field.getName());
                     CellValue.append("'").append(field.get(f_Package)).append("'");
                     break;
-                case "ContainerWorkerID":
+                case "PackageOwnerID":
+                    if (Iter.hasNext() && CellName.length() != 0 && CellName.lastIndexOf(",") != CellName.length()) {
+                        CellName.append(",");
+                        CellValue.append(",");
+                    }
                     CellName.append(field.getName());
                     CellValue.append("'").append(field.get(f_Package)).append("'");
                     break;
-                case "ContainerRelatedTransitBillSerialID":
-                    CellName.append(field.getName());
-                    CellValue.append("'").append(new Gson().toJson(field.get(f_Package), ArrayList.class)).append("'");
-                    break;
-                case "ContainerRelatedTransitBillQuantity":
-                    CellName.append(field.getName());
-                    CellValue.append("'").append(field.get(f_Package)).append("'");
-                    break;
-                case "ContainerExpressCompany":
+                case "PackageOwnerMobile":
+                    if (Iter.hasNext() && CellName.length() != 0 && CellName.lastIndexOf(",") != CellName.length()) {
+                        CellName.append(",");
+                        CellValue.append(",");
+                    }
                     CellName.append(field.getName());
                     CellValue.append("'").append(field.get(f_Package)).append("'");
                     break;
-                case "ContainerExpressTrackNumber":
+                case "PackageExpressCompany":
+                    if (Iter.hasNext() && CellName.length() != 0 && CellName.lastIndexOf(",") != CellName.length()) {
+                        CellName.append(",");
+                        CellValue.append(",");
+                    }
                     CellName.append(field.getName());
                     CellValue.append("'").append(field.get(f_Package)).append("'");
                     break;
-                case "ContainerPrice":
+                case "PackageExpressTrackNumber":
+                    if (Iter.hasNext() && CellName.length() != 0 && CellName.lastIndexOf(",") != CellName.length()) {
+                        CellName.append(",");
+                        CellValue.append(",");
+                    }
                     CellName.append(field.getName());
                     CellValue.append("'").append(field.get(f_Package)).append("'");
                     break;
-                case "ContainerInitializationTimeStamp":
+                case "PackageSnapshot":
+                    if (Iter.hasNext() && CellName.length() != 0 && CellName.lastIndexOf(",") != CellName.length()) {
+                        CellName.append(",");
+                        CellValue.append(",");
+                    }
                     CellName.append(field.getName());
                     CellValue.append("'").append(field.get(f_Package)).append("'");
                     break;
-                case "ContainerSignTimeStamp":
+                case "PackageWeight":
+                    if (Iter.hasNext() && CellName.length() != 0 && CellName.lastIndexOf(",") != CellName.length()) {
+                        CellName.append(",");
+                        CellValue.append(",");
+                    }
                     CellName.append(field.getName());
                     CellValue.append("'").append(field.get(f_Package)).append("'");
                     break;
-                case "ContainerStatus":
+                case "PackageFee":
+                    if (Iter.hasNext() && CellName.length() != 0 && CellName.lastIndexOf(",") != CellName.length()) {
+                        CellName.append(",");
+                        CellValue.append(",");
+                    }
                     CellName.append(field.getName());
                     CellValue.append("'").append(field.get(f_Package)).append("'");
                     break;
-            }
-            if (Iter.hasNext() && CellName.length() != 0) {
-                CellName.append(",");
-                CellValue.append(",");
+                case "PackageInTimeStamp":
+                    if (Iter.hasNext() && CellName.length() != 0 && CellName.lastIndexOf(",") != CellName.length()) {
+                        CellName.append(",");
+                        CellValue.append(",");
+                    }
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+                case "PackageOutTimeStamp":
+                    if (Iter.hasNext() && CellName.length() != 0 && CellName.lastIndexOf(",") != CellName.length()) {
+                        CellName.append(",");
+                        CellValue.append(",");
+                    }
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+                case "PackageStatus":
+                    if (Iter.hasNext() && CellName.length() != 0 && CellName.lastIndexOf(",") != CellName.length()) {
+                        CellName.append(",");
+                        CellValue.append(",");
+                    }
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+                case "PackageRemarks":
+                    if (Iter.hasNext() && CellName.length() != 0 && CellName.lastIndexOf(",") != CellName.length()) {
+                        CellName.append(",");
+                        CellValue.append(",");
+                    }
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+                case "PackageWorkerID":
+                    if (Iter.hasNext() && CellName.length() != 0 && CellName.lastIndexOf(",") != CellName.length()) {
+                        CellName.append(",");
+                        CellValue.append(",");
+                    }
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+                case "PackageRelatedTransitBillSerialID":
+                    if (Iter.hasNext() && CellName.length() != 0 && CellName.lastIndexOf(",") != CellName.length()) {
+                        CellName.append(",");
+                        CellValue.append(",");
+                    }
+                    CellName.append(field.getName());
+                    CellValue.append("'").append(field.get(f_Package)).append("'");
+                    break;
+                case "PackageCell_Argument_List":
+                    break;
             }
         }
 
         Connection Connect = MysqlConnect.getConnect();
-        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("insert into piaoliuhk_containerinsys ( " + CellName.toString() + " ) values ( " + CellValue.toString() + " );");
-
-        //pstmt = (PreparedStatement) Connect.prepareStatement(sql);
+        PreparedStatement PreparedStatement_DB = Connect.prepareStatement("insert into piaoliuhk_packageinsys ( " + CellName.toString() + " ) values ( " + CellValue.toString() + " );");
         return PreparedStatement_DB.executeUpdate();
     }
 

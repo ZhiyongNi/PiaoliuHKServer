@@ -39,8 +39,8 @@ public class TransitBillDB {
             TransitBill_Temp.TransitBillMethod = ResultSet_DB.getInt("TransitBillMethod");
             TransitBill_Temp.TransitBillAddress = ResultSet_DB.getString("TransitBillAddress");
             TransitBill_Temp.TransitBillSettlement = ResultSet_DB.getInt("TransitBillSettlement");
-            TransitBill_Temp.TransitBillInitializationTimeStamp = ResultSet_DB.getInt("TransitBillInitializationTimeStamp");
-            TransitBill_Temp.TransitBillSignTimeStamp = ResultSet_DB.getInt("TransitBillSignTimeStamp");
+            TransitBill_Temp.TransitBillInitializationTimeStamp = ResultSet_DB.getDouble("TransitBillInitializationTimeStamp");
+            TransitBill_Temp.TransitBillSignTimeStamp = ResultSet_DB.getDouble("TransitBillSignTimeStamp");
             TransitBill_Temp.TransitBillStatus = ResultSet_DB.getInt("TransitBillStatus");
 
             TransitBillItemList.add(TransitBill_Temp);
@@ -70,5 +70,9 @@ public class TransitBillDB {
             SQLString += ";";
         }
         return SQLString;
+    }
+
+    public static int addTransitBill(TransitBill f_TransitBill) throws SQLException, IllegalArgumentException, IllegalAccessException {
+        return 0;
     }
 }
