@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.piaoliuhkserver.models.engine.DataCSV;
+package com.piaoliuhkserver.models.engine;
 
 import com.piaoliuhkserver.models.core.Customer;
 import com.piaoliuhkserver.models.dbengine.CustomerDB;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author zhiyo
  */
-public class CheckoutCSVItem {
+public class CheckoutItem {
 
     public String TransitBillSerialID;
     public int TransitBillOwnerID;
@@ -39,7 +39,7 @@ public class CheckoutCSVItem {
     public float TransitBillPrice;
     public String TransitBillAddress;
 
-    public void CompleteSelfInfo() throws SQLException {
+    public void FillupSelfInfo() throws SQLException {
         CustomerInfo_List = new ArrayList<CustomerInfo>();
         PackageInfo_List = new ArrayList<PackageInfo>();
         if (this.TransitBillOwnerID != 0) {
@@ -60,13 +60,13 @@ public class CheckoutCSVItem {
         }
     }
 
-    public void CloneThis(CheckoutCSVItem f_CheckoutCSVItem) {
-        this.TransitBillSerialID = f_CheckoutCSVItem.TransitBillSerialID;
-        this.TransitBillOwnerID = f_CheckoutCSVItem.TransitBillOwnerID;
-        this.CustomerInfo_List = f_CheckoutCSVItem.CustomerInfo_List;
-        this.PackageInfo_List = f_CheckoutCSVItem.PackageInfo_List;
-        this.TransitBillRelatedPackageQuantity = f_CheckoutCSVItem.TransitBillRelatedPackageQuantity;
-        this.TransitBillPrice = f_CheckoutCSVItem.TransitBillPrice;
-        this.TransitBillAddress = f_CheckoutCSVItem.TransitBillAddress;
+    public void CloneThis(CheckoutItem f_CheckoutItem) {
+        this.TransitBillSerialID = f_CheckoutItem.TransitBillSerialID;
+        this.TransitBillOwnerID = f_CheckoutItem.TransitBillOwnerID;
+        this.CustomerInfo_List = f_CheckoutItem.CustomerInfo_List;
+        this.PackageInfo_List = f_CheckoutItem.PackageInfo_List;
+        this.TransitBillRelatedPackageQuantity = f_CheckoutItem.TransitBillRelatedPackageQuantity;
+        this.TransitBillPrice = f_CheckoutItem.TransitBillPrice;
+        this.TransitBillAddress = f_CheckoutItem.TransitBillAddress;
     }
 }
