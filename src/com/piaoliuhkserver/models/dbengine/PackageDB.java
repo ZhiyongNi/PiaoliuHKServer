@@ -45,7 +45,7 @@ public class PackageDB {
     }
 
     public static ArrayList<Package> searchINSYSPackagebyRelatedTransitBillSerialID(String f_PackageRelatedTransitBillSerialID) throws SQLException {
-        String ExecuteCommandString = "SELECT * FROM express_piaoliuhk.piaoliuhk_packageinsys where PackageRelatedTransitBillSerialID = /'" + f_PackageRelatedTransitBillSerialID + "/';";
+        String ExecuteCommandString = "SELECT * FROM express_piaoliuhk.piaoliuhk_packageinsys where PackageRelatedTransitBillSerialID = '" + f_PackageRelatedTransitBillSerialID + "';";
         return ExecuteCommandinQuery(ExecuteCommandString);
     }
 

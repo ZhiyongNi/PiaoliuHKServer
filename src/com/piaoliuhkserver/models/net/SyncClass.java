@@ -11,7 +11,7 @@ import com.piaoliuhkserver.models.core.Admin;
 import com.piaoliuhkserver.models.core.Container;
 import com.piaoliuhkserver.models.core.Package;
 import com.piaoliuhkserver.models.engine.CustomerList;
-import com.piaoliuhkserver.models.engine.DataCSV.CheckoutCSVItem;
+import com.piaoliuhkserver.models.engine.CheckoutItem;
 import com.piaoliuhkserver.models.engine.PackageList;
 import com.piaoliuhkserver.models.engine.ScriptCommand;
 import com.piaoliuhkserver.models.engine.TransitBillList;
