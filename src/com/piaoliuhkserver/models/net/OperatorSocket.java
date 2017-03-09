@@ -89,6 +89,7 @@ public class OperatorSocket {
                         if (nextByte != -1) {
                             OutputStream.write(nextByte);
                         } else {//还没有读取到定界符
+                            DialoguebySocketThreadFlag = false;
                             break;
                         }
                     }
